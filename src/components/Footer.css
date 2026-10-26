@@ -1,0 +1,234 @@
+.footer {
+  position: relative;
+  background: var(--ink);
+  border-top: 1px solid var(--line);
+  padding-top: clamp(3rem, 6vw, 5rem);
+  overflow: clip;
+  color: var(--text);
+}
+
+.footer__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.footer__lockup {
+  width: min(300px, 76vw);
+  height: auto;
+}
+
+.footer__desc {
+  margin-top: 1.4rem;
+  max-width: 34ch;
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.footer__dates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.footer__dates span:nth-child(2) {
+  color: var(--pink);
+}
+
+.footer__cols {
+  display: grid;
+  grid-template-columns: 0.8fr 1.15fr 0.8fr;
+  gap: clamp(1.5rem, 4vw, 4rem);
+}
+
+.footer__col h2 {
+  margin-bottom: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7f7c8c;
+}
+
+.footer__col ul {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.footer__col a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding-block: 0.2rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #d9d6e2;
+  transition: color 0.3s var(--ease);
+}
+
+.footer__col a svg {
+  width: 10px;
+  height: 10px;
+  opacity: 0.55;
+}
+
+.footer__col a:hover {
+  color: var(--mint);
+}
+
+/* --------------------------------------------------------------- orgs ----- */
+.footer__orgs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem 2rem;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-block: clamp(1.25rem, 2.5vw, 1.75rem);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.footer__orgs-head {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.footer__orgs-head p {
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 42ch;
+}
+
+.footer__org-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(1.4rem, 3.5vw, 3rem);
+}
+
+.footer__org-logos img {
+  width: auto;
+  opacity: 0.82;
+  transition: opacity 0.3s var(--ease);
+}
+
+.footer__org-logos img:hover {
+  opacity: 1;
+}
+
+.footer__org--mlrit {
+  height: 30px;
+}
+
+.footer__org--scope {
+  height: 34px;
+}
+
+.footer__org--aws {
+  height: 26px;
+}
+
+/* -------------------------------------------------------------- legal ----- */
+.footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+  padding-block: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: #7f7c8c;
+}
+
+.footer__legal-mid {
+  flex: 1;
+  min-width: 260px;
+  text-align: center;
+}
+
+.footer__to-top span {
+  color: var(--mint);
+  margin-left: 0.25rem;
+}
+
+.footer__to-top:hover {
+  color: var(--text);
+}
+
+/* --------------------------------------------------------- closing mark --- */
+.footer__mark {
+  margin-top: clamp(2rem, 5vw, 4rem);
+  padding-inline: var(--gutter);
+  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  display: flex;
+  justify-content: center;
+}
+
+.footer__mark img {
+  width: min(100%, 1160px);
+  height: auto;
+  opacity: 0.96;
+}
+
+@media (max-width: 900px) {
+  .footer__top {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__cols {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .footer__legal {
+    text-align: left;
+  }
+
+  .footer__legal-mid {
+    text-align: left;
+    order: 3;
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .footer__cols {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .footer__org-logos {
+    gap: 1.25rem;
+  }
+
+  .footer__org--mlrit {
+    height: 24px;
+  }
+
+  .footer__org--scope {
+    height: 27px;
+  }
+
+  .footer__org--aws {
+    height: 21px;
+  }
+
+  .footer__orgs {
+    align-items: flex-start;
+  }
+}

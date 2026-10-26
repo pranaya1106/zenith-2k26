@@ -1,0 +1,57 @@
+.to-top {
+  position: fixed;
+  right: clamp(1rem, 2.5vw, 2rem);
+  bottom: clamp(1rem, 2.5vw, 2rem);
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.8rem;
+  background: rgba(8, 8, 10, 0.9);
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease),
+    background 0.3s var(--ease), color 0.3s var(--ease), visibility 0.35s;
+}
+
+.to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.to-top svg {
+  width: 14px;
+  height: 14px;
+}
+
+.to-top:hover {
+  background: var(--mint);
+  border-color: var(--mint);
+  color: var(--ink);
+}
+
+@media (max-width: 720px) {
+  .to-top {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .to-top__label {
+    display: none;
+  }
+
+  .to-top svg {
+    width: 16px;
+    height: 16px;
+  }
+}

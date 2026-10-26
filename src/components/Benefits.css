@@ -1,0 +1,114 @@
+.benefits {
+  overflow: clip;
+}
+
+.benefits__shape {
+  position: absolute;
+  right: -130px;
+  bottom: -170px;
+  width: clamp(190px, 22vw, 300px);
+  z-index: 0;
+  opacity: 0.55;
+  transform: rotate(-16deg);
+  pointer-events: none;
+}
+
+.benefits__list {
+  position: relative;
+  border-bottom: 1px solid var(--line);
+}
+
+.benefit {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1.05fr) minmax(0, 0.9fr);
+  gap: clamp(1rem, 3vw, 3.5rem);
+  padding-block: clamp(1.5rem, 3.4vw, 2.9rem);
+  border-top: 1px solid var(--line);
+  transition: background 0.4s var(--ease);
+}
+
+.benefit::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto auto 0;
+  height: 1px;
+  width: 0;
+  background: var(--mint);
+  transition: width 0.55s var(--ease);
+}
+
+.benefit:hover::after {
+  width: 100%;
+}
+
+.benefit__index {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  padding-top: 0.55em;
+}
+
+.benefit__title {
+  font-size: clamp(1.75rem, 1.1rem + 2.6vw, 3.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.benefit__body {
+  align-self: center;
+}
+
+.benefit__figure {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: clamp(2rem, 1.2rem + 2.6vw, 3.2rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: var(--mint);
+}
+
+.benefit__copy {
+  max-width: 42ch;
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+@media (min-width: 900px) {
+  .benefit:nth-child(2) {
+    padding-left: 7%;
+  }
+
+  .benefit:nth-child(3) {
+    padding-left: 14%;
+  }
+}
+
+@media (max-width: 860px) {
+  .benefit {
+    grid-template-columns: 2.2rem minmax(0, 1fr);
+    gap: 0.75rem 1rem;
+  }
+
+  .benefit__body {
+    grid-column: 2;
+  }
+
+  .benefit__copy {
+    max-width: 56ch;
+  }
+
+  .benefit__shape {
+    opacity: 0.5;
+  }
+
+  .benefits__shape {
+    right: -110px;
+    bottom: -60px;
+  }
+}

@@ -1,0 +1,8 @@
+.sec-head {
+  scroll-margin-top: calc(var(--nav-h) + 1rem);
+}
+
+.sec-head__title {
+  /* keeps long single words from breaking the grid on narrow screens */
+  overflow-wrap: break-word;
+}
