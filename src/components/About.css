@@ -7,7 +7,7 @@
   position: absolute;
   right: -7%;
   bottom: -14%;
-  width: clamp(300px, 40vw, 560px);
+  width: clamp(440px, 55vw, 780px);
   z-index: 0;
   opacity: 0.16;
   transform: rotate(12deg);

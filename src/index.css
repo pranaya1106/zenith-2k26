@@ -228,21 +228,17 @@ body::after {
   display: inline-flex;
   align-items: center;
   gap: 0.7em;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--fs-mono);
-  font-weight: 500;
-  letter-spacing: 0.16em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
   white-space: nowrap;
 }
 
 .label::before {
-  content: '';
-  width: 0.55em;
-  height: 0.55em;
-  background: var(--mint);
-  flex: none;
+  display: none;
 }
 
 .label--plain::before {
@@ -430,7 +426,7 @@ body::after {
   padding: 0.42em 0.7em;
   border: 1px solid var(--line);
   border-radius: 2px;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--fs-mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -438,11 +434,7 @@ body::after {
 }
 
 .chip::before {
-  content: '';
-  width: 5px;
-  height: 5px;
-  background: var(--pink);
-  flex: none;
+  display: none;
 }
 
 .num-tabular {

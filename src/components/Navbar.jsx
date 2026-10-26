@@ -31,14 +31,25 @@ function useActiveSection() {
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const [open, setOpen] = useState(false)
   const active = useActiveSection()
   const menuRef = useRef(null)
   const closeRef = useRef(null)
   const toggleRef = useRef(null)
+  const lastScrollY = useRef(0)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    const onScroll = () => {
+      const currentY = window.scrollY
+      setScrolled(currentY > 24)
+      if (currentY > 80) {
+        setHidden(currentY > lastScrollY.current)
+      } else {
+        setHidden(false)
+      }
+      lastScrollY.current = currentY
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -99,8 +110,13 @@ export default function Navbar() {
 
   return (
     <>
-      <header className={`nav${scrolled ? ' is-scrolled' : ''}`}>
+      <header className={`nav${scrolled ? ' is-scrolled' : ''}${hidden ? ' is-hidden' : ''}`}>
         <div className="container nav__inner">
+          <div className="nav__logos-left">
+            <img src="/assets/brand/scope-club-white.webp" alt="SCOPE Club" />
+            <img src="/assets/brand/aws-sbg-white.webp" alt="AWS Student Builder Group" />
+          </div>
+
           <a className="nav__brand" href="#top" aria-label={`ZENITH ${event.edition} — back to top`}>
             <img
               className="nav__mark"
@@ -129,6 +145,10 @@ export default function Navbar() {
               ))}
             </ul>
           </nav>
+
+          <div className="nav__logos-right">
+            <img src="/assets/brand/mlrit-white.webp" alt="MLR Institute of Technology" />
+          </div>
 
           <div className="nav__actions">
             <RegisterButton className="btn btn--sm btn--primary nav__cta">Register</RegisterButton>

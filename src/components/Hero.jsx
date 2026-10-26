@@ -1,148 +1,113 @@
-import { useEffect, useState } from 'react'
+import { useRef } from 'react'
 import { event } from '../data/site'
-import { getCountdown } from '../hooks/useReveal'
 import RegisterButton from './RegisterButton'
 import { ArrowDown } from './ui/Icons'
+import { TiltCard, TiltCardItem } from './TiltCard'
+import { useParallax } from './ui/parallax-scrolling'
 import './Hero.css'
 
-function Countdown() {
-  const [time, setTime] = useState(() => getCountdown(event.dates.startISO))
-
-  useEffect(() => {
-    const id = window.setInterval(
-      () => setTime(getCountdown(event.dates.startISO)),
-      1000,
-    )
-    return () => window.clearInterval(id)
-  }, [])
-
-  const pad = (value) => String(value).padStart(2, '0')
-  const units = [
-    { value: pad(time.days), label: 'D' },
-    { value: pad(time.hours), label: 'H' },
-    { value: pad(time.minutes), label: 'M' },
-    { value: pad(time.seconds), label: 'S' },
-  ]
-
-  return (
-    <div className="count">
-      <span className="count__label">T-minus</span>
-      <div className="count__units" aria-hidden="true">
-        {units.map((unit) => (
-          <span className="count__unit" key={unit.label}>
-            <b>{unit.value}</b>
-            <i>{unit.label}</i>
-          </span>
-        ))}
-      </div>
-      <span className="sr-only">
-        ZENITH ’26 begins on 17 December 2026 at MLR Institute of Technology, Hyderabad.
-      </span>
-    </div>
-  )
-}
-
 export default function Hero() {
+  const heroRef = useRef(null)
+  useParallax(heroRef)
+
   return (
-    <section className="hero" id="top" aria-labelledby="hero-title">
+    <section className="hero" id="top" aria-labelledby="hero-title" ref={heroRef}>
+      {/*
+        Parallax layers (see ui/parallax-scrolling.jsx):
+        speed = scroll travel (+ lags / far, − rushes / near), spin = degrees,
+        depth = px of drift toward the mouse.
+      */}
       <div className="hero__stage" aria-hidden="true">
-        <span className="hero__glow" />
-        <img className="hero__star" src="/assets/shapes/purple-star.webp" alt="" />
-        <img className="hero__pink" src="/assets/ai/star-pink.webp" alt="" />
-        <img className="hero__bloom" src="/assets/ai/bloom-orange.webp" alt="" />
+        <img className="hero__light-left" src="/assets/left-lighting-effect.png" alt="" data-parallax-speed="25" />
+        <img className="hero__light-right" src="/assets/right-lighting-effect.png" alt="" data-parallax-speed="25" />
+        <img
+          className="hero__star"
+          src="/assets/shapes/purple-star.webp"
+          alt=""
+          data-parallax-speed="18"
+          data-parallax-spin="12"
+          data-parallax-depth="12"
+        />
+
+        {/* Gemini */}
+        <span className="hero__pink" data-parallax-speed="-90" data-parallax-spin="-70">
+          <span className="hero__sym" data-parallax-depth="55">
+            <img src="/assets/ai/star-pink.webp" alt="" />
+          </span>
+        </span>
+
+        {/* Claude */}
+        <span className="hero__bloom" data-parallax-speed="-140" data-parallax-spin="160">
+          <span className="hero__sym" data-parallax-depth="40">
+            <img src="/assets/ai/bloom-orange.webp" alt="" />
+          </span>
+        </span>
+
         <span className="hero__rule hero__rule--1" />
         <span className="hero__rule hero__rule--2" />
         <span className="hero__rule hero__rule--3" />
       </div>
 
-      <div className="container hero__inner">
+      <div className="container hero__inner" data-parallax-speed="22">
         <div className="hero__lead">
-          <p className="hero__eyebrow" data-reveal>
-            <span className="hero__pulse" aria-hidden="true" />
-            {event.organiser} · {event.kind}
-          </p>
+          <div className="hero__mark" data-reveal style={{ '--reveal-delay': '80ms' }}>
+            <h1 className="hero__title" id="hero-title">
+              <img
+                src="/assets/brand/zenith-wordmark.webp"
+                alt="ZENITH '26 — The Year of 2K26"
+                width="2000"
+                height="816"
+                decoding="async"
+              />
+            </h1>
 
-          <h1 className="hero__title" id="hero-title" data-reveal style={{ '--reveal-delay': '80ms' }}>
-            <img
-              src="/assets/brand/zenith-wordmark.webp"
-              alt="ZENITH ’26 — The Year of 2K26"
-              width="2000"
-              height="816"
-              decoding="async"
-            />
-          </h1>
-
-          <p className="hero__tagline" data-reveal style={{ '--reveal-delay': '150ms' }}>
-            <span className="hero__tagline-mark" aria-hidden="true" />
-            {event.theme}
-          </p>
-
-          <p className="hero__facts" data-reveal style={{ '--reveal-delay': '185ms' }}>
-            <span>{event.dates.compact}</span>
-            <span aria-hidden="true">/</span>
-            <span>MLRIT, Hyderabad</span>
-          </p>
-
-          <p className="hero__lede" data-reveal style={{ '--reveal-delay': '210ms' }}>
-            Three days at MLR Institute of Technology: an AWS Community Day with cloud
-            practitioners, then a 24-hour sprint to ship AI-powered answers to real problems
-            in HealthTech, EduTech and AgriTech.
-          </p>
-
-          <div className="hero__actions" data-reveal style={{ '--reveal-delay': '270ms' }}>
-            <RegisterButton />
-            <a className="btn" href="#about">
-              Explore the event
-              <ArrowDown />
-            </a>
+            {/* Sign hanging from the H of ZENITH */}
+            <div className="hang-sign">
+              <div className="hang-sign__swing">
+                <span className="hang-sign__pin" aria-hidden="true" />
+                <svg className="hang-sign__string" viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true">
+                  <polyline points="14,40 50,1 86,40" />
+                </svg>
+                <p className="hang-sign__board">
+                  <span className="hang-sign__hole hang-sign__hole--l" aria-hidden="true" />
+                  <span className="hang-sign__hole hang-sign__hole--r" aria-hidden="true" />
+                  {event.theme}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <aside className="brief" data-reveal style={{ '--reveal-delay': '330ms' }} aria-label="Event brief">
-          <div className="brief__head">
-            <span className="brief__kicker">Mission brief</span>
-            <span className="brief__code">Z26 / HYD</span>
-          </div>
-
-          <dl className="brief__rows">
-            <div className="brief__row">
-              <dt>Date</dt>
-              <dd>{event.dates.display}</dd>
-            </div>
-            <div className="brief__row">
-              <dt>Venue</dt>
-              <dd>MLRIT, Hyderabad</dd>
-            </div>
-            <div className="brief__row">
-              <dt>Format</dt>
-              <dd>
-                {event.format}
-              </dd>
-            </div>
-            <div className="brief__row">
-              <dt>Prize pool</dt>
-              <dd className="brief__figure">{event.prizePool}</dd>
-            </div>
-            <div className="brief__row">
-              <dt>Registration</dt>
-              <dd>{event.fee}</dd>
-            </div>
-          </dl>
-
-          <p className="brief__foot">
-            In collaboration with <span>{event.collaborator}</span>
-          </p>
+        <aside data-reveal style={{ '--reveal-delay': '330ms' }} aria-label="Event brief">
+          <TiltCard className="event-card">
+            <TiltCardItem depth={40}>
+              <p className="event-card__title">Event Details</p>
+            </TiltCardItem>
+            <TiltCardItem depth={60}>
+              <div className="event-card__rows">
+                <div className="event-card__row">
+                  <span className="event-card__label">Date</span>
+                  <span className="event-card__value">{event.dates.display}</span>
+                </div>
+                <div className="event-card__row">
+                  <span className="event-card__label">Venue</span>
+                  <span className="event-card__value">MLRIT, Hyderabad</span>
+                </div>
+                <div className="event-card__row">
+                  <span className="event-card__label">Format</span>
+                  <span className="event-card__value">{event.format}</span>
+                </div>
+              </div>
+            </TiltCardItem>
+          </TiltCard>
         </aside>
       </div>
 
-      <div className="container hero__foot">
-        <Countdown />
-        <p className="hero__foot-note">
-          MLRIT <span>·</span> Dundigal, Hyderabad
-        </p>
-        <a className="hero__scroll" href="#why">
-          <span>Scroll</span>
-          <span className="hero__scroll-line" aria-hidden="true" />
+      <div className="container hero__actions" data-reveal style={{ '--reveal-delay': '270ms' }}>
+        <RegisterButton />
+        <a className="btn" href="#about">
+          Explore the event
+          <ArrowDown />
         </a>
       </div>
     </section>

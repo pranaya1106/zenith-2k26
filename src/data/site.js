@@ -68,19 +68,23 @@ export const navLinks = [
 export const benefits = [
   {
     index: '01',
-    title: 'Learn & innovate',
-    copy: 'Gain hands-on experience and strengthen your real-world problem-solving skills.',
-  },
-  {
-    index: '02',
     title: 'Network',
     copy: 'Connect with industry experts and like-minded innovators during the AWS Community Day.',
   },
   {
+    index: '02',
+    title: 'Workshops',
+    copy: 'Learn from expert speakers through hands-on sessions covering AI, ML, Cloud Computing, Data Engineering, and AWS.',
+  },
+  {
     index: '03',
-    title: 'Win prizes',
-    copy: 'A prize pool worth ₹1.5 lakh across three domains, along with exciting rewards, awaits you.',
-    highlight: '₹1.5L',
+    title: 'Prize Pool',
+    copy: 'Compete with teams from across the country and win a share of the ₹1,00,000 prize pool.',
+  },
+  {
+    index: '04',
+    title: 'Recognition',
+    copy: 'Earn certificates, showcase your technical skills, and add a valuable achievement to your portfolio.',
   },
 ]
 
@@ -171,36 +175,42 @@ export const speakers = {
       name: 'Nagababu Medicharla',
       role: 'Principal Cloud Architect | AWS Ambassador | AWS Community Builder',
       linkedin: 'https://www.linkedin.com/in/nagababu-medicharla-b2a91a117/',
+      photo: '/assets/speakers/nagababu-medicharla.jpg',
       accent: 'purple',
     },
     {
       name: 'Raghu Reddy',
       role: 'Lead Data Platform Engineer @ Razor Group | Ex- ZScaler | Cloud Native Organizers | AWS Community Builder | Platform Engineer | MLOps | GitOps | CKA Certified | Terraform Certified | AWS | 3X Azure | Speaker',
       linkedin: 'https://www.linkedin.com/in/raghureddycloud',
+      photo: '/assets/speakers/raghu-reddy.jpg',
       accent: 'mint',
     },
     {
       name: 'Varsha Verma',
       role: 'AWS Community Builder | 11K+ LinkedIn | Tech Speaker | Lead Cloud Engineer | AWS | LINUX | DEVOPS | Terraform | DevOps Community Lead at TWS | Blogger | Public Speaker | Tech influencer',
       linkedin: 'https://www.linkedin.com/in/varsha-verma-cloud-devops',
+      photo: '/assets/speakers/varsha-verma.jpg',
       accent: 'pink',
     },
     {
       name: 'Satyajit Samantray',
       role: 'Principal Cloud Architect at Searce | AWS Community Builder | AWS Ambassador | Public Speaker | 7*AWS | 1*AZURE | 1*GCP | CKA certified | Terraform | Linux | Hadoop | Helping Customers adopt Cloud',
       linkedin: 'https://www.linkedin.com/in/satyajit-samantray-b30a7075',
+      photo: '/assets/speakers/satyajit-samantray.jpg',
       accent: 'purple',
     },
     {
       name: 'Vishnu Rachapudi',
       role: 'Works at @SUDO | AWS Community Builder | 12x AWS Certified | K[CNA,CSA] | Your Friendly Neighbourhood Cloud Guy',
       linkedin: 'https://www.linkedin.com/in/vishnu-rachapudi-28956920b',
+      photo: '/assets/speakers/vishnu-rachapudi.jpg',
       accent: 'mint',
     },
     {
       name: 'Avinash Reddy Thipparthi',
       role: 'Aviz Academy | 8x AWS Certified | AWS Community Builder | Docker Captain',
       linkedin: 'https://www.linkedin.com/in/avizway',
+      photo: '/assets/speakers/avinash-reddy-thipparthi.jpg',
       accent: 'pink',
     },
   ],

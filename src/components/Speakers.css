@@ -2,183 +2,147 @@
   overflow: clip;
 }
 
-.speakers__shape {
-  position: absolute;
-  top: clamp(4rem, 8vw, 8rem);
-  right: -70px;
-  width: clamp(150px, 18vw, 240px);
-  z-index: 0;
-  opacity: 0.9;
-  transform: rotate(-12deg);
-  pointer-events: none;
-}
-
 .speakers__note {
   display: inline;
 }
 
-.speakers__list {
-  border-bottom: 1px solid var(--line);
+/* Simple photo grid: 6 across on wide screens, fewer as space shrinks */
+.speakers__grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(1rem, 1.8vw, 1.75rem);
 }
 
 .speaker {
-  border-top: 1px solid var(--line);
-}
-
-.speaker__link {
-  position: relative;
-  display: grid;
-  grid-template-columns: 2.6rem minmax(0, 1fr) 3.4rem 1.4rem;
-  align-items: center;
-  gap: clamp(0.9rem, 2.4vw, 2rem);
-  padding: clamp(1.1rem, 2.4vw, 1.7rem) 0;
-  transition: color 0.35s var(--ease);
-}
-
-.speaker__link::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--mint);
-  transform: scaleY(0);
-  transform-origin: top;
-  transition: transform 0.45s var(--ease);
-}
-
-.speaker__link:hover::before,
-.speaker__link:focus-visible::before {
-  transform: scaleY(1);
-}
-
-.speaker__idx {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-  padding-left: 0.75rem;
-}
-
-.speaker__main {
-  display: grid;
-  gap: 0.35rem;
+  --accent: var(--mint);
   min-width: 0;
 }
 
+.speaker--pink {
+  --accent: var(--pink);
+}
+
+.speaker--purple {
+  --accent: #9b7bff;
+}
+
+.speaker__link {
+  display: block;
+}
+
+/* Framed photo, greyscale until hovered */
+.speaker__photo {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  padding: 6px;
+  border-radius: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+
+/* Accent underline that sweeps in on hover */
+.speaker__photo::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: 0;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease);
+}
+
+.speaker__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  border-radius: 9px;
+  filter: grayscale(1) contrast(1.05);
+  transition: filter 0.5s var(--ease), transform 0.6s var(--ease);
+}
+
 .speaker__name {
-  font-size: clamp(1.35rem, 0.9rem + 1.7vw, 2.25rem);
+  display: block;
+  margin-top: 1rem;
+  font-size: clamp(1rem, 0.82rem + 0.55vw, 1.3rem);
   font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -0.035em;
-  transition: color 0.35s var(--ease), transform 0.45s var(--ease);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  transition: color 0.35s var(--ease);
+}
+
+.speaker__role {
+  margin-top: 0.55rem;
+  font-size: 0.74rem;
+  line-height: 1.55;
+  color: var(--muted);
+  /* Long role strings are clipped to keep cards even */
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.speaker__link:hover .speaker__photo,
+.speaker__link:focus-visible .speaker__photo {
+  border-color: var(--accent);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+.speaker__link:hover .speaker__photo::after,
+.speaker__link:focus-visible .speaker__photo::after {
+  transform: scaleX(1);
+}
+
+.speaker__link:hover .speaker__photo img,
+.speaker__link:focus-visible .speaker__photo img {
+  filter: none;
+  transform: scale(1.04);
 }
 
 .speaker__link:hover .speaker__name,
 .speaker__link:focus-visible .speaker__name {
-  color: var(--mint);
-  transform: translateX(3px);
+  color: var(--accent);
 }
 
-.speaker__role {
-  max-width: 78ch;
-  font-size: 0.78rem;
-  line-height: 1.55;
-  color: var(--muted);
-}
-
-.speaker__mono {
-  display: grid;
-  place-items: center;
-  width: 3.4rem;
-  height: 3.4rem;
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  background: var(--surface-2);
-  border: 1px solid var(--line);
-  color: var(--text);
-  transition: background 0.35s var(--ease), color 0.35s var(--ease),
-    border-color 0.35s var(--ease);
-}
-
-.speaker--mint .speaker__mono {
-  background: rgba(32, 227, 153, 0.14);
-  border-color: rgba(32, 227, 153, 0.4);
-  color: var(--mint);
-}
-
-.speaker--pink .speaker__mono {
-  background: rgba(251, 87, 166, 0.12);
-  border-color: rgba(251, 87, 166, 0.36);
-  color: var(--pink);
-}
-
-.speaker--purple .speaker__mono {
-  background: rgba(107, 45, 234, 0.2);
-  border-color: rgba(107, 45, 234, 0.5);
-  color: #b79bff;
-}
-
-.speaker__link:hover .speaker__mono {
-  background: var(--mint);
-  border-color: var(--mint);
-  color: var(--ink);
-}
-
-.speaker__arrow {
-  display: inline-flex;
-  color: var(--muted);
-  transition: color 0.35s var(--ease), transform 0.35s var(--ease);
-}
-
-.speaker__arrow svg {
-  width: 15px;
-  height: 15px;
-}
-
-.speaker__link:hover .speaker__arrow {
-  color: var(--mint);
-  transform: translate(2px, -2px);
-}
-
-.speakers__foot {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem 1.5rem;
-  margin-top: clamp(1.5rem, 3vw, 2.2rem);
-  font-size: var(--fs-xs);
-  color: var(--muted);
-}
-
-@media (max-width: 720px) {
-  .speaker__link {
-    grid-template-columns: 1.9rem minmax(0, 1fr) 2.6rem;
-    gap: 0.8rem;
+@media (max-width: 1180px) {
+  .speakers__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem 1.25rem;
   }
+}
 
-  .speaker__idx {
-    padding-left: 0.5rem;
+@media (max-width: 600px) {
+  .speakers__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem 0.9rem;
   }
 
   .speaker__role {
-    font-size: 0.74rem;
+    font-size: 0.7rem;
+    -webkit-line-clamp: 3;
   }
+}
 
-  .speaker__mono {
-    width: 2.6rem;
-    height: 2.6rem;
-    font-size: 0.82rem;
+/* Touch screens can't hover, so show photos in colour there */
+@media (hover: none) {
+  .speaker__photo img {
+    filter: none;
   }
+}
 
-  .speaker__arrow {
-    display: none;
-  }
-
-  .speakers__shape {
-    display: none;
+@media (prefers-reduced-motion: reduce) {
+  .speaker__photo img,
+  .speaker__photo::after {
+    transition: none;
   }
 }

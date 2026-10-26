@@ -39,7 +39,7 @@
 }
 
 .faq__item.is-open {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .faq__heading {
@@ -64,7 +64,7 @@
   font-family: var(--font-mono);
   font-size: 0.58rem;
   letter-spacing: 0.1em;
-  color: #85837f;
+  color: var(--muted);
   align-self: start;
   padding-top: 0.35em;
 }
@@ -78,7 +78,7 @@
 }
 
 .faq__trigger:hover .faq__q {
-  color: var(--purple);
+  color: var(--mint);
 }
 
 .faq__icon {
@@ -125,7 +125,7 @@
   padding: 0 3.1rem clamp(1.25rem, 2.4vw, 1.8rem) calc(2.2rem + 0.9rem + 0.4rem);
   font-size: var(--fs-sm);
   line-height: 1.7;
-  color: #45454a;
+  color: var(--muted);
 }
 
 .faq__item.is-open .faq__panel {

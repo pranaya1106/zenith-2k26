@@ -1,6 +1,5 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import Ticker from './components/Ticker'
 import Benefits from './components/Benefits'
 import About from './components/About'
 import Domains from './components/Domains'
@@ -11,11 +10,14 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import BackToTop from './components/BackToTop'
 import { DialogProvider } from './components/ui/Dialog'
+import { useEffect } from 'react'
 import { useReveal } from './hooks/useReveal'
+import { startSmoothScroll } from './lib/smoothScroll'
 import './App.css'
 
 function Page() {
   useReveal()
+  useEffect(() => startSmoothScroll(), [])
 
   return (
     <div className="app">
@@ -27,7 +29,6 @@ function Page() {
 
       <main id="main">
         <Hero />
-        <Ticker />
         <Benefits />
         <About />
         <Domains />

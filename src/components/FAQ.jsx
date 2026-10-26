@@ -9,7 +9,7 @@ export default function FAQ() {
   const baseId = useId()
 
   return (
-    <section className="section faq tone-paper" id="faq" aria-labelledby="faq-title">
+    <section className="section faq tone-dark" id="faq" aria-labelledby="faq-title">
       <div className="container section__inner">
         <div className="faq__grid">
           <div className="faq__aside">

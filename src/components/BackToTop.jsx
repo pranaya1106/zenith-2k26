@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { scrollToTarget } from '../lib/smoothScroll'
 import './BackToTop.css'
 
 export default function BackToTop() {
@@ -15,7 +16,7 @@ export default function BackToTop() {
     <button
       type="button"
       className={`to-top${visible ? ' is-visible' : ''}`}
-      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      onClick={() => scrollToTarget(0)}
       tabIndex={visible ? 0 : -1}
       aria-hidden={!visible}
       aria-label="Back to top"

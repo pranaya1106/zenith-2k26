@@ -4,7 +4,7 @@
   flex-direction: column;
   min-height: 100svh;
   padding-top: var(--nav-h);
-  background: linear-gradient(180deg, #0d0b13 0%, var(--ink) 42%);
+  background: var(--ink);
   border-bottom: 1px solid var(--line);
   overflow: clip;
 }
@@ -18,14 +18,28 @@
   overflow: hidden;
 }
 
-.hero__glow {
+/* Corner light leaks: pushed off-canvas and faded out with a radial mask
+   so only a soft glow spills in from the top corners, with no hard edges. */
+.hero__light-left,
+.hero__light-right {
   position: absolute;
-  top: -26vw;
-  left: -16vw;
-  width: 72vw;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(107, 45, 234, 0.4) 0%, rgba(107, 45, 234, 0) 62%);
+  top: -18%;
+  width: clamp(260px, 34vw, 520px);
+  height: auto;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.hero__light-left {
+  left: -14%;
+  -webkit-mask-image: radial-gradient(ellipse at 0% 0%, #000 0%, transparent 70%);
+  mask-image: radial-gradient(ellipse at 0% 0%, #000 0%, transparent 70%);
+}
+
+.hero__light-right {
+  right: -14%;
+  -webkit-mask-image: radial-gradient(ellipse at 100% 0%, #000 0%, transparent 70%);
+  mask-image: radial-gradient(ellipse at 100% 0%, #000 0%, transparent 70%);
 }
 
 .hero__star {
@@ -38,25 +52,51 @@
   opacity: 0.46;
 }
 
-.hero__pink {
+/* AI symbols. Three nested layers so the motions never overwrite each other:
+   wrapper (.hero__pink / .hero__bloom) = position + scroll parallax & spin,
+   .hero__sym = mouse drift, img = resting tilt and shadow. */
+.hero__pink,
+.hero__bloom {
   position: absolute;
+  display: block;
+  will-change: transform;
+}
+
+.hero__sym {
+  display: block;
+  will-change: transform;
+}
+
+.hero__pink img,
+.hero__bloom img {
+  width: 100%;
+  height: auto;
+}
+
+/* Gemini */
+.hero__pink {
   top: 9%;
   right: clamp(-2rem, 1vw, 2rem);
-  width: clamp(84px, 10vw, 142px);
-  height: auto;
-  transform: rotate(14deg);
-  filter: drop-shadow(0 22px 34px rgba(0, 0, 0, 0.45));
+  width: clamp(140px, 16vw, 240px);
   z-index: 3;
 }
 
+.hero__pink img {
+  transform: rotate(14deg);
+  filter: drop-shadow(0 22px 34px rgba(0, 0, 0, 0.45));
+}
+
+/* Claude */
 .hero__bloom {
-  position: absolute;
   left: -3%;
   bottom: 1.5%;
-  width: clamp(64px, 7.5vw, 104px);
-  height: auto;
+  width: clamp(120px, 14vw, 200px);
+}
+
+.hero__bloom img {
   transform: rotate(-14deg);
   opacity: 0.92;
+  filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.4));
 }
 
 .hero__rule {
@@ -100,42 +140,16 @@
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--fs-mono);
-  font-weight: 500;
-  letter-spacing: 0.16em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
 .hero__pulse {
-  position: relative;
-  width: 7px;
-  height: 7px;
-  flex: none;
-  background: var(--mint);
-  border-radius: 50%;
-}
-
-.hero__pulse::after {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border: 1px solid rgba(32, 227, 153, 0.5);
-  border-radius: 50%;
-  animation: pulse 2.8s var(--ease) infinite;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(0.6);
-    opacity: 0.9;
-  }
-  70%,
-  100% {
-    transform: scale(1.5);
-    opacity: 0;
-  }
+  display: none;
 }
 
 .hero__title {
@@ -148,24 +162,139 @@
   max-width: min(100%, 700px);
 }
 
-.hero__tagline {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  margin-top: clamp(0.9rem, 2.2vh, 1.5rem);
-  font-size: clamp(1rem, 0.7rem + 1.1vw, 1.5rem);
-  font-weight: 800;
-  letter-spacing: 0.26em;
-  line-height: 1;
-  text-transform: uppercase;
+/* ------------------------------------------------------- hanging sign ---- */
+/* Wrapper matches the wordmark width so % positions track the H. */
+.hero__mark {
+  position: relative;
+  width: 100%;
+  max-width: min(100%, 800px);
 }
 
-.hero__tagline-mark {
-  width: 12px;
-  height: 12px;
-  flex: none;
-  background: var(--mint);
-  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+.hero__mark .hero__title img {
+  max-width: 100%;
+}
+
+.hang-sign {
+  /* Pin point: under the H of ZENITH (tweak these to fine-tune) */
+  --hang-x: 84.5%;
+  --hang-y: 60%;
+  position: absolute;
+  left: var(--hang-x);
+  top: var(--hang-y);
+  z-index: 3;
+  transform: translateX(-50%);
+}
+
+.hang-sign__swing {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: 50% 0;
+  animation:
+    hang-settle 2.6s cubic-bezier(0.36, 0, 0.3, 1) 0.4s both,
+    hang-swing 3.2s ease-in-out 3s infinite alternate;
+  will-change: transform;
+}
+
+.hang-sign__pin {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  z-index: 2;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #d6d4dc, #77737f 70%);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+.hang-sign__string {
+  display: block;
+  width: 100%;
+  height: clamp(22px, 3vw, 34px);
+  overflow: visible;
+}
+
+.hang-sign__string polyline {
+  fill: none;
+  stroke: var(--pink);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.hang-sign__board {
+  position: relative;
+  /* Pull up so the string ends land on the holes */
+  margin-top: -14px;
+  padding: 1.55rem 1.5rem 0.95rem;
+  background: linear-gradient(170deg, #f6f3ec 0%, #e6e1d6 100%);
+  color: var(--purple-deep);
+  border-radius: 6px;
+  box-shadow:
+    inset 0 -3px 0 rgba(0, 0, 0, 0.08),
+    0 14px 26px rgba(0, 0, 0, 0.45),
+    0 3px 6px rgba(0, 0, 0, 0.3);
+  font-family: var(--font-sans);
+  font-size: clamp(0.78rem, 0.6rem + 0.7vw, 1.1rem);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hang-sign__hole {
+  position: absolute;
+  top: 9px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--pink-deep);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+/* String ends sit at 14% / 86% of the swing width (see SVG points) */
+.hang-sign__hole--l {
+  left: calc(14% - 5px);
+}
+
+.hang-sign__hole--r {
+  right: calc(14% - 5px);
+}
+
+/* Drops in with a big swing that decays, then hands off to the idle sway */
+@keyframes hang-settle {
+  0% {
+    transform: rotate(24deg);
+  }
+  22% {
+    transform: rotate(-16deg);
+  }
+  44% {
+    transform: rotate(10deg);
+  }
+  64% {
+    transform: rotate(-7deg);
+  }
+  82% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(-4deg);
+  }
+}
+
+@keyframes hang-swing {
+  from {
+    transform: rotate(-4deg);
+  }
+  to {
+    transform: rotate(4deg);
+  }
 }
 
 .hero__facts {
@@ -181,10 +310,13 @@
 }
 
 .hero__actions {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.75rem;
-  margin-top: clamp(1.6rem, 3.2vh, 2.4rem);
+  padding-bottom: clamp(1.5rem, 3.5vh, 2.5rem);
 }
 
 /* ------------------------------------------------------------ the card ---- */
@@ -502,11 +634,11 @@
   .hero__bloom {
     bottom: 4%;
     left: -1.2rem;
-    width: 64px;
+    width: 100px;
   }
 
   .hero__pink {
-    width: 72px;
+    width: 110px;
     top: 3.5%;
   }
 

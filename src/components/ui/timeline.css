@@ -1,0 +1,234 @@
+.stl {
+  --stl-accent: var(--mint);
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+}
+
+.stl__track {
+  display: flex;
+  align-items: center;
+  gap: clamp(3rem, 6vw, 7rem);
+  width: max-content;
+  padding-inline: var(--gutter);
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------- intro ---- */
+.stl__intro {
+  flex: none;
+  display: grid;
+  gap: clamp(0.9rem, 1.6vw, 1.4rem);
+  width: clamp(270px, 30vw, 440px);
+}
+
+.stl__title {
+  font-size: var(--fs-display);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+
+.stl__title em {
+  font-style: normal;
+  color: var(--purple);
+}
+
+.stl__note {
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.stl__note .chip {
+  margin-right: 0.4em;
+}
+
+.stl__media {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  padding: 12%;
+  border-radius: 16px;
+  background: linear-gradient(150deg, #7c3ff7 0%, #6b2dea 50%, #4f1cb8 100%);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4);
+}
+
+.stl__media img {
+  width: 100%;
+  height: auto;
+}
+
+/* -------------------------------------------------------------- rail ---- */
+.stl__rail {
+  position: relative;
+  flex: none;
+  height: clamp(420px, 64vh, 600px);
+  padding-right: 8vw;
+}
+
+/* Faint dashed guide with the accent line drawing over it */
+.stl__line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  height: 0;
+}
+
+.stl__line::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-image: repeating-linear-gradient(90deg, rgba(244, 242, 246, 0.22) 0 5px, transparent 5px 11px);
+}
+
+.stl__cap {
+  position: relative;
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--stl-accent);
+}
+
+.stl__line-fill {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  background: var(--stl-accent);
+  box-shadow: 0 0 8px rgba(32, 227, 153, 0.55);
+  transform-origin: 0 50%;
+}
+
+/* -------------------------------------------------------- milestones ---- */
+.stl__items {
+  display: flex;
+  height: 100%;
+  padding-left: clamp(2rem, 5vw, 5rem);
+}
+
+.stl__item {
+  --w: clamp(240px, 24vw, 360px);
+  position: relative;
+  flex: none;
+  width: var(--w);
+  height: 100%;
+}
+
+/* Top and bottom items interleave, so they can overlap horizontally */
+.stl__item + .stl__item {
+  margin-left: calc(var(--w) * -0.38);
+}
+
+.stl__stem {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  height: 50%;
+  background: var(--stl-accent);
+}
+
+.is-top .stl__stem {
+  top: 0;
+  transform-origin: 50% 100%;
+}
+
+.is-bottom .stl__stem {
+  top: 50%;
+  transform-origin: 50% 0;
+}
+
+/* Positioned with margins so GSAP can freely scale the transform */
+.stl__dot {
+  position: absolute;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  border-radius: 50%;
+  background: var(--stl-accent);
+  box-shadow: 0 0 0 5px rgba(32, 227, 153, 0.14), 0 0 14px rgba(32, 227, 153, 0.6);
+}
+
+.is-top .stl__dot {
+  top: -6px;
+}
+
+.is-bottom .stl__dot {
+  bottom: -6px;
+}
+
+.is-final .stl__dot {
+  background: var(--pink);
+  box-shadow: 0 0 0 6px rgba(251, 87, 166, 0.16), 0 0 16px rgba(251, 87, 166, 0.65);
+}
+
+.stl__text {
+  position: absolute;
+  left: 1.5rem;
+  right: 0.5rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.is-top .stl__text {
+  top: -0.45rem;
+}
+
+.is-bottom .stl__text {
+  bottom: -0.45rem;
+}
+
+.stl__date {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.stl__index {
+  font-size: 0.58rem;
+  color: var(--muted);
+}
+
+.stl__date sup {
+  margin-left: -0.35em;
+  font-size: 0.52rem;
+  color: var(--pink);
+}
+
+.stl__item-title {
+  font-size: clamp(1.15rem, 0.8rem + 1.1vw, 1.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+
+.stl__copy {
+  max-width: 30ch;
+  font-size: clamp(0.82rem, 0.78rem + 0.2vw, 0.92rem);
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------- reduced motion -- */
+@media (prefers-reduced-motion: reduce) {
+  .stl {
+    height: auto;
+    padding-block: var(--section-y);
+    overflow-x: auto;
+  }
+}
