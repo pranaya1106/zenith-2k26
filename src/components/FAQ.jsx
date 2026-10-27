@@ -14,7 +14,7 @@ export default function FAQ() {
         <div className="faq__grid">
           <div className="faq__aside">
             <SectionHead
-              index="06"
+              index="07"
               label="FAQ"
               id="faq-title"
               title={

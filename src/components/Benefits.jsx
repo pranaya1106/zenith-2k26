@@ -1,10 +1,28 @@
+import { useRef } from 'react'
 import { benefits } from '../data/site'
 import SectionHead from './ui/SectionHead'
+import { useParallax } from './ui/parallax-scrolling'
 import './Benefits.css'
 
+// yPercent travelled per card over the section's scroll. Alternating signs
+// make neighbouring cards drift apart and back, deepening the scattered look.
+const cardSpeeds = [-22, 14, -28, 10]
+
+// Hoisted so the hook's effect deps stay stable between renders
+const PARALLAX_OPTIONS = {
+  start: 'top bottom',
+  end: 'bottom top',
+  centered: true,
+  // Only for the overlapping desktop fan; the stacked mobile grid stays static
+  media: '(min-width: 861px)',
+}
+
 export default function Benefits() {
+  const sectionRef = useRef(null)
+  useParallax(sectionRef, PARALLAX_OPTIONS)
+
   return (
-    <section className="section benefits tone-dark" id="why" aria-labelledby="why-title">
+    <section ref={sectionRef} className="section benefits tone-dark" id="why" aria-labelledby="why-title">
       <div className="benefits__grid-bg" aria-hidden="true" />
 
       <div className="container section__inner">
@@ -23,7 +41,7 @@ export default function Benefits() {
         <div className="perks">
           {/* Thin glowing swooshes: some pass behind the cards, some in front.
               The gradient fades each stroke out at both ends. */}
-          <svg className="perks__swoosh perks__swoosh--back" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
+          <svg className="perks__swoosh perks__swoosh--back" data-parallax-speed="12" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
             <defs>
               <linearGradient id="swoosh-a" x1="0" x2="1" y1="0" y2="1">
                 <stop offset="0" stopColor="#20e399" stopOpacity="0" />
@@ -44,6 +62,9 @@ export default function Benefits() {
                 data-reveal
                 style={{ '--reveal-delay': `${index * 90}ms` }}
               >
+                {/* Parallax lives on a wrapper so it doesn't fight the li's
+                    reveal transform or the card's tilt/hover transform */}
+                <div className="perk__parallax" data-parallax-speed={cardSpeeds[index % cardSpeeds.length]}>
                 <article className="perk__card">
                   <h3 className="perk__title">{benefit.title}</h3>
                   <div className="perk__logo" aria-hidden="true">
@@ -51,11 +72,12 @@ export default function Benefits() {
                   </div>
                   <p className="perk__copy">{benefit.copy}</p>
                 </article>
+                </div>
               </li>
             ))}
           </ol>
 
-          <svg className="perks__swoosh perks__swoosh--front" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
+          <svg className="perks__swoosh perks__swoosh--front" data-parallax-speed="-14" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
             <defs>
               <linearGradient id="swoosh-b" x1="0" x2="1" y1="0" y2="0">
                 <stop offset="0" stopColor="#20e399" stopOpacity="0" />

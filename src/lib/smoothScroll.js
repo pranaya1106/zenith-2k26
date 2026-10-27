@@ -11,12 +11,15 @@ gsap.registerPlugin(ScrollTrigger)
 
 let lenis = null
 
+// Fast start, long soft landing — used for in-page link jumps.
+const easeOutExpo = (t) => (t === 1 ? 1 : 1 - 2 ** (-10 * t))
+
 /** The active Lenis instance, or null (reduced motion / not started). */
 export const getLenis = () => lenis
 
 /** Scrolls to a position or element, smoothly when Lenis is running. */
 export function scrollToTarget(target) {
-  if (lenis) lenis.scrollTo(target, { force: true })
+  if (lenis) lenis.scrollTo(target, { force: true, duration: 1.4, easing: easeOutExpo })
   else if (typeof target === 'number') window.scrollTo({ top: target, behavior: 'smooth' })
   else target.scrollIntoView({ behavior: 'smooth' })
 }
@@ -27,7 +30,14 @@ export function startSmoothScroll() {
     return () => {}
   }
 
-  lenis = new Lenis()
+  lenis = new Lenis({
+    // Lower lerp = more glide. 0.07 feels weighty without lagging behind input.
+    lerp: 0.07,
+    smoothWheel: true,
+    wheelMultiplier: 0.9,
+    // Touch keeps native momentum (smoothing it on phones feels laggy).
+    syncTouch: false,
+  })
   lenis.on('scroll', ScrollTrigger.update)
 
   const tick = (time) => lenis.raf(time * 1000)
@@ -49,7 +59,7 @@ export function startSmoothScroll() {
     event.preventDefault()
     // force: the mobile menu unlocks scrolling in this same click, before Lenis
     // has been told to start again.
-    lenis.scrollTo(target, { force: true })
+    lenis.scrollTo(target, { force: true, duration: 1.4, easing: easeOutExpo })
     history.pushState(null, '', hash)
     if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1')
     target.focus({ preventScroll: true })

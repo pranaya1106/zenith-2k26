@@ -21,26 +21,44 @@ gsap.registerPlugin(ScrollTrigger)
 
 const MOTION_OK = '(prefers-reduced-motion: no-preference)'
 
-export function useParallax(scopeRef) {
+/**
+ * @param scopeRef  section whose descendants carry the data attributes
+ * @param options   { start, end } ScrollTrigger range. The default suits a
+ *                  section at the top of the page (the hero); for sections
+ *                  further down use { start: 'top bottom', end: 'bottom top' }.
+ *                  `centered: true` travels from -speed/2 to +speed/2, so
+ *                  layers sit at their CSS position mid-scroll instead of
+ *                  starting there. `media` adds an extra media query gate.
+ */
+export function useParallax(
+  scopeRef,
+  { start = 'top top', end = 'bottom top', centered = false, media = '' } = {},
+) {
   useEffect(() => {
     const scope = scopeRef.current
     if (!scope) return undefined
 
     const mm = gsap.matchMedia()
+    const scrollQuery = media ? `${MOTION_OK} and ${media}` : MOTION_OK
 
     // Scroll-linked layers
-    mm.add(MOTION_OK, () => {
+    mm.add(scrollQuery, () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: scope,
-          start: 'top top',
-          end: 'bottom top',
+          start,
+          end,
           scrub: true,
         },
       })
 
       scope.querySelectorAll('[data-parallax-speed]').forEach((el) => {
-        tl.to(el, { yPercent: parseFloat(el.dataset.parallaxSpeed), ease: 'none' }, 0)
+        const speed = parseFloat(el.dataset.parallaxSpeed)
+        if (centered) {
+          tl.fromTo(el, { yPercent: -speed / 2 }, { yPercent: speed / 2, ease: 'none' }, 0)
+        } else {
+          tl.to(el, { yPercent: speed, ease: 'none' }, 0)
+        }
       })
       scope.querySelectorAll('[data-parallax-spin]').forEach((el) => {
         tl.to(el, { rotation: `+=${parseFloat(el.dataset.parallaxSpin)}`, ease: 'none' }, 0)
@@ -76,5 +94,5 @@ export function useParallax(scopeRef) {
 
     // Reverts every tween, ScrollTrigger and listener created above.
     return () => mm.revert()
-  }, [scopeRef])
+  }, [scopeRef, start, end, centered, media])
 }

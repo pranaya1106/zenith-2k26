@@ -1,0 +1,257 @@
+/* Event timeline — layout mirrors zenith2k26.vercel.app; colours from index.css */
+
+.tl {
+  --tl-accent: var(--pink);
+  --tl-rule: var(--purple);
+  --tl-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  height: 270vh;
+  background: var(--ink);
+  color: var(--text);
+}
+
+.tl-accent-text {
+  color: var(--tl-accent);
+}
+
+.tl-display {
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+.tl-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.tl__sticky {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ------------------------------------------------------- section label -- */
+.tl__head {
+  position: absolute;
+  inset-inline: 0;
+  top: 5rem;
+  z-index: 20;
+  max-width: 1600px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  pointer-events: none;
+}
+
+.tl__sec {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(244, 242, 246, 0.45);
+}
+
+.tl__sec-rule {
+  width: 2rem;
+  height: 1px;
+  background: rgba(244, 242, 246, 0.25);
+}
+
+/* --------------------------------------------------------------- track -- */
+.tl__track {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  gap: 10vw;
+  padding-right: 16vw;
+  padding-left: 1.25rem;
+}
+
+.tl__rule,
+.tl__rule-fill {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  pointer-events: none;
+}
+
+.tl__rule {
+  height: 1px;
+  margin-top: -0.5px;
+  background: rgba(244, 242, 246, 0.12);
+}
+
+.tl__rule-fill {
+  height: 2px;
+  margin-top: -1px;
+  background: var(--tl-rule);
+  transform-origin: left center;
+}
+
+/* --------------------------------------------------------------- intro -- */
+.tl__intro {
+  flex-shrink: 0;
+  width: 76vw;
+}
+
+.tl__heading {
+  font-size: 13vw;
+  line-height: 0.9;
+}
+
+.tl__range {
+  margin-top: 1.5rem;
+  color: var(--text);
+}
+
+.tl__lede {
+  max-width: 30ch;
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.625;
+  color: var(--text);
+}
+
+/* ---------------------------------------------------------- milestones -- */
+.tl__item {
+  position: relative;
+  flex-shrink: 0;
+  width: 66vw;
+  height: 62vh;
+}
+
+.tl__dot {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--tl-accent);
+  box-shadow: 0 0 0 4px var(--ink);
+  transition: transform 500ms var(--tl-ease);
+}
+
+.tl__stem {
+  position: absolute;
+  left: 5px;
+  width: 1px;
+  height: 2rem;
+  background: var(--tl-accent);
+  transition: transform 500ms var(--tl-ease);
+}
+
+.is-above .tl__stem {
+  bottom: 50%;
+}
+
+.is-below .tl__stem {
+  top: 50%;
+}
+
+.tl__text {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  transition: opacity 700ms var(--tl-ease), transform 700ms var(--tl-ease);
+}
+
+.is-above .tl__text {
+  bottom: calc(50% + 2.75rem);
+}
+
+.is-below .tl__text {
+  top: calc(50% + 2.75rem);
+}
+
+.tl__date {
+  display: block;
+  font-size: 13vw;
+  line-height: 1;
+}
+
+.tl__title {
+  margin-top: 0.75rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  letter-spacing: normal;
+}
+
+.tl__copy {
+  max-width: 30ch;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.625;
+  color: rgba(244, 242, 246, 0.5);
+}
+
+.tl__count {
+  display: inline-block;
+  margin-top: 1rem;
+  color: rgba(244, 242, 246, 0.35);
+}
+
+/* ------------------------------------------------------------- desktop -- */
+@media (min-width: 768px) {
+  .tl {
+    height: 240vh;
+  }
+
+  .tl__head {
+    top: 7rem;
+    padding-inline: 2rem;
+  }
+
+  .tl__track {
+    gap: 7vw;
+    padding-right: 10vw;
+    padding-left: 2rem;
+  }
+
+  .tl__intro {
+    width: 26vw;
+  }
+
+  .tl__heading {
+    font-size: 4.4vw;
+  }
+
+  .tl__lede {
+    font-size: 1rem;
+  }
+
+  .tl__item {
+    width: 23vw;
+    height: 54vh;
+  }
+
+  .tl__dot {
+    width: 12px;
+    height: 12px;
+  }
+
+  .tl__stem {
+    left: 6px;
+  }
+
+  .tl__date {
+    font-size: 3.2vw;
+  }
+
+  .tl__title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .tl__copy {
+    font-size: 0.95rem;
+  }
+}

@@ -1,7 +1,9 @@
-import { event, links, navLinks } from '../data/site'
-import { ArrowUpRight } from './ui/Icons'
+import { navLinks } from '../data/site'
 import './Footer.css'
 
+// Email, phones, address, socials, dates and registration all live in the
+// Contact section directly above, so the footer only carries brand, quick
+// navigation, the organisers and the legal line.
 const orgs = [
   {
     src: '/assets/brand/mlrit-white.webp',
@@ -26,102 +28,31 @@ const orgs = [
   },
 ]
 
-const socials = [
-  { label: 'Instagram', href: links.social.instagram },
-  { label: 'LinkedIn', href: links.social.linkedin },
-  { label: 'X / Twitter', href: links.social.x },
-  { label: 'GitHub', href: links.social.github },
-]
-
 export default function Footer() {
   return (
     <footer className="footer">
-      <div className="container">
+      <div className="container footer__inner">
         <div className="footer__top">
-          <div className="footer__brand">
-            <a className="footer__lockup-link" href="#top" aria-label="ZENITH ’26 — back to top">
-              <img
-                className="footer__lockup"
-                src="/assets/brand/zenith-lockup.webp"
-                alt="ZENITH ’26 — The Year of 2K26, The AI Voyage"
-                width="1800"
-                height="929"
-                loading="lazy"
-              />
-            </a>
-            <p className="footer__desc">
-              A national-level hackathon by {event.organiser} at {event.institution},
-              Hyderabad.
-            </p>
-            <p className="footer__dates">
-              <span>{event.dates.compact}</span>
-              <span aria-hidden="true">/</span>
-              <span>{event.city}, IN</span>
-            </p>
-          </div>
-
-          <div className="footer__cols">
-            <nav className="footer__col" aria-label="Footer sections">
-              <h2>Explore</h2>
-              <ul>
-                {navLinks.map((link) => (
-                  <li key={link.href}>
-                    <a href={link.href}>{link.label}</a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            <div className="footer__col">
-              <h2>Resources</h2>
-              <ul>
-                <li>
-                  <a
-                    href={links.problemStatementsArchive}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    ’25 problem statements
-                    <ArrowUpRight />
-                  </a>
+          <nav aria-label="Footer sections">
+            <ul className="footer__nav">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href}>{link.label}</a>
                 </li>
-                <li>
-                  <a href={links.itineraryArchive} target="_blank" rel="noopener noreferrer">
-                    ’25 itinerary
-                    <ArrowUpRight />
-                  </a>
-                </li>
-                <li>
-                  <a href="#faq">FAQ</a>
-                </li>
-                <li>
-                  <a href="#contact">Registration</a>
-                </li>
-              </ul>
-            </div>
-
-            <div className="footer__col">
-              <h2>Follow</h2>
-              <ul>
-                {socials.map((social) => (
-                  <li key={social.label}>
-                    <a href={social.href} target="_blank" rel="noopener noreferrer">
-                      {social.label}
-                      <ArrowUpRight />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+              ))}
+            </ul>
+          </nav>
         </div>
 
-        <div className="footer__orgs">
-          <div className="footer__orgs-head">
-            <span className="label label--plain">Organised by</span>
-            <p>SCOPE Club, MLR Institute of Technology · in collaboration with AWS</p>
-          </div>
-          <ul className="footer__org-logos">
+        {/* Oversized ZENITH ’26 wordmark. ZENITH is cut from the logo artwork
+            and used as a CSS mask; ’26 is plain text in the same colour. */}
+        <a className="footer__wordmark" href="#top" aria-label="ZENITH ’26 — back to top">
+          <span className="footer__wordmark-zenith" aria-hidden="true" />
+          <span className="footer__wordmark-year" aria-hidden="true">’26</span>
+        </a>
+
+        <div className="footer__bottom">
+          <ul className="footer__org-logos" aria-label="Organised by">
             {orgs.map((org) => (
               <li key={org.src}>
                 <img
@@ -135,21 +66,8 @@ export default function Footer() {
               </li>
             ))}
           </ul>
+          <p className="footer__legal">© 2026 SCOPE Club. All rights reserved.</p>
         </div>
-
-        <div className="footer__legal">
-          <p>© 2026 SCOPE Club. All rights reserved.</p>
-          <p className="footer__legal-mid">
-            ZENITH is a national-level hackathon by SCOPE Club at MLR Institute of Technology.
-          </p>
-          <a className="footer__to-top" href="#top">
-            Back to top <span aria-hidden="true">↑</span>
-          </a>
-        </div>
-      </div>
-
-      <div className="footer__mark" aria-hidden="true">
-        <img src="/assets/brand/zenith-wordmark.webp" alt="" width="2000" height="816" loading="lazy" />
       </div>
     </footer>
   )

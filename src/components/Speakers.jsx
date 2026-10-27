@@ -15,12 +15,6 @@ export default function Speakers() {
               The <em>lineup</em>
             </>
           }
-          note={
-            <>
-              <span className="chip">’25 edition</span>
-              <span className="speakers__note"> {speakers.note}</span>
-            </>
-          }
         />
 
         <ul className="speakers__grid">

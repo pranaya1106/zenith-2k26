@@ -7,12 +7,11 @@ import { useEffect } from 'react'
  */
 export function useReveal() {
   useEffect(() => {
-    const nodes = document.querySelectorAll('[data-reveal]:not(.is-visible)')
-    if (!nodes.length) return
+    const pending = () => document.querySelectorAll('[data-reveal]:not(.is-visible)')
 
     if (!('IntersectionObserver' in window)) {
-      nodes.forEach((node) => node.classList.add('is-visible'))
-      return
+      pending().forEach((node) => node.classList.add('is-visible'))
+      return undefined
     }
 
     const observer = new IntersectionObserver(
@@ -26,8 +25,19 @@ export function useReveal() {
       { threshold: 0.12, rootMargin: '0px 0px -6% 0px' },
     )
 
-    nodes.forEach((node) => observer.observe(node))
-    return () => observer.disconnect()
+    pending().forEach((node) => observer.observe(node))
+
+    // Elements mounted after the first render (re-mounted components, hot
+    // reloads) would otherwise stay at opacity 0 forever, so watch for them.
+    const mutations = new MutationObserver(() => {
+      pending().forEach((node) => observer.observe(node))
+    })
+    mutations.observe(document.body, { childList: true, subtree: true })
+
+    return () => {
+      mutations.disconnect()
+      observer.disconnect()
+    }
   }, [])
 }
 

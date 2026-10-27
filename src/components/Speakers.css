@@ -2,10 +2,6 @@
   overflow: clip;
 }
 
-.speakers__note {
-  display: inline;
-}
-
 /* Simple photo grid: 6 across on wide screens, fewer as space shrinks */
 .speakers__grid {
   display: grid;

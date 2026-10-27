@@ -55,6 +55,11 @@
   z-index: 5;
 }
 
+/* Scroll-parallax layer (transform driven by GSAP) */
+.perk__parallax {
+  will-change: transform;
+}
+
 .perk__card {
   position: relative;
   display: flex;
@@ -110,7 +115,6 @@
   text-transform: uppercase;
   white-space: nowrap;
   color: var(--mint);
-  text-shadow: 0 0 14px rgba(32, 227, 153, 0.4);
   transform: rotate(-4deg);
 }
 

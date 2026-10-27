@@ -5,18 +5,20 @@ import About from './components/About'
 import Domains from './components/Domains'
 import Timeline from './components/Timeline'
 import Speakers from './components/Speakers'
+import Sponsors from './components/Sponsors'
 import FAQ from './components/FAQ'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import BackToTop from './components/BackToTop'
 import { DialogProvider } from './components/ui/Dialog'
 import { useEffect } from 'react'
 import { useReveal } from './hooks/useReveal'
+import { useSectionTransitions } from './hooks/useSectionTransitions'
 import { startSmoothScroll } from './lib/smoothScroll'
 import './App.css'
 
 function Page() {
   useReveal()
+  useSectionTransitions()
   useEffect(() => startSmoothScroll(), [])
 
   return (
@@ -34,12 +36,12 @@ function Page() {
         <Domains />
         <Timeline />
         <Speakers />
+        <Sponsors />
         <FAQ />
         <Contact />
       </main>
 
       <Footer />
-      <BackToTop />
     </div>
   )
 }

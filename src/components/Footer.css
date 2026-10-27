@@ -1,113 +1,108 @@
 .footer {
   position: relative;
   background: var(--ink);
-  border-top: 1px solid var(--line);
-  padding-top: clamp(3rem, 6vw, 5rem);
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
   overflow: clip;
   color: var(--text);
 }
 
+.footer__inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* Soft fade in from the Contact section, matching the section hand-offs */
+.footer::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: clamp(60px, 8vw, 110px);
+  background: linear-gradient(to bottom, var(--ink), transparent);
+  pointer-events: none;
+}
+
 .footer__top {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
-  gap: clamp(2rem, 6vw, 6rem);
-  align-items: start;
-}
-
-.footer__lockup {
-  width: min(300px, 76vw);
-  height: auto;
-}
-
-.footer__desc {
-  margin-top: 1.4rem;
-  max-width: 34ch;
-  font-size: var(--fs-sm);
-  line-height: 1.65;
-  color: var(--muted);
-}
-
-.footer__dates {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-top: 1.2rem;
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.footer__dates span:nth-child(2) {
-  color: var(--pink);
-}
-
-.footer__cols {
-  display: grid;
-  grid-template-columns: 0.8fr 1.15fr 0.8fr;
-  gap: clamp(1.5rem, 4vw, 4rem);
-}
-
-.footer__col h2 {
-  margin-bottom: 1rem;
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #7f7c8c;
-}
-
-.footer__col ul {
-  display: grid;
-  gap: 0.4rem;
-}
-
-.footer__col a {
-  display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding-block: 0.2rem;
+  justify-content: space-between;
+  gap: 2rem 3rem;
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--line);
+}
+
+/* --------------------------------------------------- big wordmark ---- */
+/* ZENITH is a mask cut from the logo (1600x359). '26 is plain text sized in
+   container units so its digits match the ZENITH letter height at any width. */
+.footer__wordmark {
+  --wm-color: #1b1a20;
+  container-type: inline-size;
+  display: flex;
+  /* The mask span's synthesized baseline is its bottom edge, so this sits
+     ZENITH's feet on the digits' baseline. */
+  align-items: baseline;
+  gap: 1.5%;
+  width: 100%;
+  padding-block: clamp(1.75rem, 4vw, 3.5rem) clamp(1.25rem, 3vw, 2.5rem);
+  border-bottom: 1px solid var(--line);
+  color: var(--wm-color);
+  transition: color 0.5s var(--ease);
+}
+
+.footer__wordmark-zenith {
+  display: block;
+  flex: none;
+  width: 67%;
+  aspect-ratio: 1600 / 359;
+  -webkit-mask: url('/assets/brand/footer-zenith.webp') no-repeat 0 0 / 100% 100%;
+  mask: url('/assets/brand/footer-zenith.webp') no-repeat 0 0 / 100% 100%;
+  background: currentColor;
+}
+
+/* ZENITH is 67% x 359/1600 = ~15cqw tall; Plus Jakarta Sans digits are
+   ~0.71em, so 21.2cqw matches (and '26 fits in the remaining ~31%).
+   line-height 0.75 trims the space under the baseline. */
+.footer__wordmark-year {
+  flex: none;
+  font-size: 21.2cqw;
+  font-weight: 800;
+  line-height: 0.75;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+}
+
+.footer__wordmark:hover {
+  --wm-color: #24232b;
+}
+
+.footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem clamp(1.25rem, 2.5vw, 2.25rem);
+}
+
+.footer__nav a {
+  display: inline-block;
+  padding-block: 0.3rem;
   font-size: 0.82rem;
-  line-height: 1.5;
+  font-weight: 500;
   color: #d9d6e2;
   transition: color 0.3s var(--ease);
 }
 
-.footer__col a svg {
-  width: 10px;
-  height: 10px;
-  opacity: 0.55;
-}
-
-.footer__col a:hover {
+.footer__nav a:hover {
   color: var(--mint);
 }
 
-/* --------------------------------------------------------------- orgs ----- */
-.footer__orgs {
+/* ------------------------------------------------- organisers + legal ---- */
+.footer__bottom {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem 2rem;
-  margin-top: clamp(2.5rem, 5vw, 4rem);
-  padding-block: clamp(1.25rem, 2.5vw, 1.75rem);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-.footer__orgs-head {
-  display: grid;
-  gap: 0.4rem;
-}
-
-.footer__orgs-head p {
-  font-size: 0.74rem;
-  line-height: 1.5;
-  color: var(--muted);
-  max-width: 42ch;
+  padding-block: clamp(1.5rem, 3vw, 2.25rem);
 }
 
 .footer__org-logos {
@@ -139,14 +134,7 @@
   height: 26px;
 }
 
-/* -------------------------------------------------------------- legal ----- */
 .footer__legal {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.75rem 2rem;
-  padding-block: clamp(1.25rem, 2.5vw, 1.75rem);
   font-family: var(--font-mono);
   font-size: 0.58rem;
   letter-spacing: 0.1em;
@@ -155,61 +143,11 @@
   color: #7f7c8c;
 }
 
-.footer__legal-mid {
-  flex: 1;
-  min-width: 260px;
-  text-align: center;
-}
-
-.footer__to-top span {
-  color: var(--mint);
-  margin-left: 0.25rem;
-}
-
-.footer__to-top:hover {
-  color: var(--text);
-}
-
-/* --------------------------------------------------------- closing mark --- */
-.footer__mark {
-  margin-top: clamp(2rem, 5vw, 4rem);
-  padding-inline: var(--gutter);
-  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
-  display: flex;
-  justify-content: center;
-}
-
-.footer__mark img {
-  width: min(100%, 1160px);
-  height: auto;
-  opacity: 0.96;
-}
-
-@media (max-width: 900px) {
-  .footer__top {
-    grid-template-columns: 1fr;
-  }
-
-  .footer__cols {
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
-
-  .footer__legal {
-    text-align: left;
-  }
-
-  .footer__legal-mid {
-    text-align: left;
-    order: 3;
-    flex-basis: 100%;
-  }
-}
-
 @media (max-width: 560px) {
-  .footer__cols {
-    grid-template-columns: 1fr;
-    gap: 1.75rem;
+  .footer__top,
+  .footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .footer__org-logos {
@@ -226,9 +164,5 @@
 
   .footer__org--aws {
     height: 21px;
-  }
-
-  .footer__orgs {
-    align-items: flex-start;
   }
 }

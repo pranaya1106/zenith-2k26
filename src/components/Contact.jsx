@@ -2,6 +2,7 @@ import { contact, event, links } from '../data/site'
 import SectionHead from './ui/SectionHead'
 import RegisterButton from './RegisterButton'
 import { ArrowUpRight } from './ui/Icons'
+import { TiltCard, TiltCardItem } from './TiltCard'
 import './Contact.css'
 
 const socials = [
@@ -13,14 +14,10 @@ const socials = [
 
 export default function Contact() {
   return (
-    <section className="section contact tone-purple" id="contact" aria-labelledby="contact-title">
-      <div className="contact__shape" aria-hidden="true">
-        <img src="/assets/shapes/purple-star.webp" alt="" loading="lazy" />
-      </div>
-
+    <section className="section contact tone-dark" id="contact" aria-labelledby="contact-title">
       <div className="container section__inner">
         <SectionHead
-          index="07"
+          index="08"
           label="Contact"
           id="contact-title"
           title={
@@ -77,38 +74,46 @@ export default function Contact() {
             </div>
           </div>
 
-          <aside className="contact__card" aria-label="Registration">
-            <span className="label label--plain contact__card-label">Register</span>
-            <p className="contact__card-title">
-              Two days.
-              <br />
-              Three domains.
-              <br />
-              One voyage.
-            </p>
+          {/* Same 3D tilt card as the hero's Event Details */}
+          <aside className="contact__card-wrap" aria-label="Registration">
+            <TiltCard className="event-card contact__card">
+              <TiltCardItem depth={40}>
+                <p className="event-card__title">Register</p>
+                <p className="contact__card-title">
+                  Two days.
+                  <br />
+                  Three domains.
+                  <br />
+                  One voyage.
+                </p>
+              </TiltCardItem>
 
-            <dl className="contact__card-facts">
-              <div>
-                <dt>Dates</dt>
-                <dd>{event.dates.compact}</dd>
-              </div>
-              <div>
-                <dt>Entry</dt>
-                <dd>{event.fee}</dd>
-              </div>
-              <div>
-                <dt>Venue</dt>
-                <dd>{event.institutionShort}, Hyderabad</dd>
-              </div>
-            </dl>
+              <TiltCardItem depth={60}>
+                <dl className="event-card__rows">
+                  <div className="event-card__row">
+                    <dt className="event-card__label">Dates</dt>
+                    <dd className="event-card__value">{event.dates.compact}</dd>
+                  </div>
+                  <div className="event-card__row">
+                    <dt className="event-card__label">Entry</dt>
+                    <dd className="event-card__value">{event.fee}</dd>
+                  </div>
+                  <div className="event-card__row">
+                    <dt className="event-card__label">Venue</dt>
+                    <dd className="event-card__value">{event.institutionShort}, Hyderabad</dd>
+                  </div>
+                </dl>
+              </TiltCardItem>
 
-            <RegisterButton className="btn btn--primary btn--block">
-              Register for ZENITH ’26
-            </RegisterButton>
-
-            <p className="contact__card-note">
-              The portal opens shortly. Write to us and we’ll send the link the day it does.
-            </p>
+              <TiltCardItem depth={30}>
+                <RegisterButton className="btn btn--primary btn--block contact__card-btn">
+                  Register for ZENITH ’26
+                </RegisterButton>
+                <p className="contact__card-note">
+                  The portal opens shortly. Write to us and we’ll send the link the day it does.
+                </p>
+              </TiltCardItem>
+            </TiltCard>
           </aside>
         </div>
       </div>

@@ -27,3 +27,20 @@
 main {
   display: block;
 }
+
+/* Section hand-off: a soft fade at the top of every section blends it into
+   the one above, replacing hard edges. Sits behind content (z-index 0). */
+main > section + section::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 0;
+  height: clamp(80px, 12vw, 160px);
+  background: linear-gradient(to bottom, var(--ink), transparent);
+  pointer-events: none;
+}
+
+/* The timeline's sticky viewport must stay above the fade */
+main > section.tl::before {
+  display: none;
+}

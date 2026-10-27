@@ -1,16 +1,12 @@
 .contact {
   overflow: clip;
+  /* Tighter hand-off into the footer than the default section spacing */
+  padding-bottom: clamp(2rem, 4vw, 3.5rem);
 }
 
-.contact__shape {
-  position: absolute;
-  right: -16%;
-  bottom: -22%;
-  width: clamp(300px, 36vw, 500px);
-  z-index: 0;
-  opacity: 0.16;
-  transform: rotate(-14deg);
-  pointer-events: none;
+/* Keep the mint highlight on the title */
+.contact .sec-head__title em {
+  color: var(--mint);
 }
 
 .contact__grid {
@@ -142,72 +138,46 @@
 }
 
 /* -------------------------------------------------------------- the card -- */
-.contact__card {
-  position: relative;
-  padding: clamp(1.4rem, 2.6vw, 2rem);
-  background: var(--ink);
-  color: #f4f2f6;
-  clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%);
+/* -------------------------------------------------------------- the card -- */
+/* Base look + tilt come from TiltCard.css (.tilt-card / .event-card), same as
+   the hero. These rules only add what the register card needs on top. */
+.contact__card-wrap {
+  width: 100%;
+  max-width: 400px;
+  justify-self: end;
 }
 
-.contact__card::before {
-  content: '';
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 3px;
-  background: var(--mint);
-}
-
-.contact__card-label {
-  color: rgba(244, 242, 246, 0.6);
+.contact__card.event-card {
+  max-width: none;
 }
 
 .contact__card-title {
-  margin-top: 1rem;
+  margin-bottom: 0.5rem;
   font-size: clamp(1.45rem, 1rem + 1.2vw, 1.9rem);
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.04em;
   text-transform: uppercase;
+  color: #fff;
 }
 
-.contact__card-facts {
-  display: grid;
-  gap: 0;
-  margin: 1.4rem 0;
-  border-top: 1px solid rgba(244, 242, 246, 0.14);
+.contact__card .event-card__row {
+  grid-template-columns: 4.5rem 1fr;
 }
 
-.contact__card-facts div {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-block: 0.65rem;
-  border-bottom: 1px solid rgba(244, 242, 246, 0.14);
-}
-
-.contact__card-facts dt {
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(244, 242, 246, 0.6);
-}
-
-.contact__card-facts dd {
-  font-size: 0.82rem;
-  font-weight: 700;
+.contact__card .event-card__value {
+  margin: 0;
   text-align: right;
 }
 
-.contact__card .btn {
+.contact__card-btn {
+  margin-top: 1.5rem;
   --btn-bg: var(--purple);
   --btn-fg: #fff;
   --btn-bd: var(--purple);
 }
 
-.contact__card .btn:hover {
+.contact__card-btn:hover {
   --btn-bg: var(--mint);
   --btn-bd: var(--mint);
   --btn-fg: var(--ink);
@@ -225,7 +195,8 @@
     grid-template-columns: 1fr;
   }
 
-  .contact__card {
+  .contact__card-wrap {
+    justify-self: start;
     max-width: 440px;
   }
 }
@@ -245,7 +216,8 @@
     grid-template-columns: 1fr;
   }
 
-  .contact__card {
+  .contact__card-wrap {
     max-width: 100%;
   }
 }
+

@@ -5,7 +5,6 @@
   min-height: 100svh;
   padding-top: var(--nav-h);
   background: var(--ink);
-  border-bottom: 1px solid var(--line);
   overflow: clip;
 }
 

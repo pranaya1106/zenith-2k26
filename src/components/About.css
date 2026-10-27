@@ -3,15 +3,49 @@
   overflow: clip;
 }
 
+/* Keep the mint highlight on the title to match the mission text */
+.about .sec-head__title em {
+  color: var(--mint);
+}
+
+/* Starts top-left; GSAP translates it to the mirrored bottom-right spot.
+   Reduced motion: it simply rests bottom-right (see media query below). */
 .about__knot {
   position: absolute;
-  right: -7%;
-  bottom: -14%;
-  width: clamp(440px, 55vw, 780px);
+  left: 2%;
+  top: 2%;
+  width: clamp(260px, 30vw, 440px);
   z-index: 0;
   opacity: 0.16;
-  transform: rotate(12deg);
   pointer-events: none;
+  /* Own GPU layer so rolling never repaints the section */
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  contain: layout paint;
+}
+
+.about__knot img {
+  display: block;
+  /* Smooth edges while rotating */
+  image-rendering: auto;
+  backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about__knot {
+    left: auto;
+    top: auto;
+    right: 2%;
+    bottom: 2%;
+  }
+}
+
+.about__knot img {
+  width: 100%;
+  height: auto;
+  /* Resting tilt lives on the img so GSAP's spin on the wrapper adds to it */
+  transform: rotate(12deg);
 }
 
 .about__grid {
@@ -46,35 +80,180 @@
   color: rgba(255, 255, 255, 0.56);
 }
 
-.about__stats {
+/* ---------------------------------------------------------- stat bento ---- */
+/*  Layout:  [ 24 HOURS ][ DAYS    ]
+             [ (tall)   ][ DOMAINS ]
+             [   COMMUNITY DAY     ]  */
+.about__bento {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-top: 1px solid var(--line);
-  border-left: 1px solid var(--line);
+  grid-auto-rows: minmax(92px, auto);
+  gap: 0.6rem;
 }
 
-.about__stats div {
-  padding: 0.85rem 1rem;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+.about__tile {
+  --accent: var(--pink);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  background: #f4f2f6;
+  color: var(--ink);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
 }
 
-.about__stats b {
+/* Accent spotlight that follows the pointer */
+.about__tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+    220px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--accent) 22%, transparent),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+
+/* Accent bar that grows in on hover */
+.about__tile::after {
+  content: '';
+  position: absolute;
+  left: 1.1rem;
+  top: 1rem;
+  width: 1.4rem;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform: scaleX(0.35);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease);
+}
+
+.about__tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.45);
+}
+
+.about__tile:hover::before {
+  opacity: 1;
+}
+
+.about__tile:hover::after {
+  transform: scaleX(1);
+}
+
+.about__tile b {
   display: block;
-  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+  font-size: clamp(1.8rem, 2.6vw, 2.4rem);
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.045em;
+  transition: color 0.35s var(--ease);
 }
 
-.about__stats span {
+.about__tile:hover b {
+  color: var(--accent);
+}
+
+.about__tile span {
   display: block;
   margin-top: 0.4rem;
   font-family: var(--font-mono);
   font-size: 0.56rem;
+  font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7);
+  color: #5c5c60;
+}
+
+/* Brand shape tucked into the top-right corner; drifts and turns on hover */
+.about__tile-shape {
+  position: absolute;
+  top: var(--shape-top, -14%);
+  right: var(--shape-right, -8%);
+  z-index: -1;
+  width: var(--shape-w, 46%);
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  rotate: var(--shape-rot, 0deg);
+  transition: translate 0.6s var(--ease), rotate 0.6s var(--ease), scale 0.6s var(--ease);
+}
+
+.about__tile:hover .about__tile-shape {
+  translate: -6px 6px;
+  rotate: calc(var(--shape-rot, 0deg) - 8deg);
+  scale: 1.06;
+}
+
+/* Tile placement — data order: Days, Domains, Hours, Community Day */
+.about__tile--1 {
+  --accent: var(--pink-deep);
+  --shape-w: 40%;
+  --shape-rot: 10deg;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.about__tile--2 {
+  --accent: #0c9f68;
+  --shape-w: 40%;
+  --shape-rot: -12deg;
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.about__tile--3 {
+  --shape-w: 52%;
+  --shape-top: -6%;
+  --shape-right: -10%;
+}
+
+.about__tile--4 {
+  --shape-w: 30%;
+  --shape-top: -38%;
+  --shape-right: auto;
+}
+
+.about__tile--4 .about__tile-shape {
+  left: 32%;
+}
+
+.about__tile--3 {
+  --accent: var(--purple);
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+
+.about__tile--3 b {
+  font-size: clamp(3rem, 5vw, 4.6rem);
+}
+
+.about__tile--4 {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-top: 1.6rem;
+}
+
+.about__tile--4 span {
+  margin-top: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about__tile,
+  .about__tile:hover {
+    transform: none;
+  }
 }
 
 .about__partner {
@@ -91,14 +270,6 @@
   height: 54px;
   filter: brightness(0) invert(1);
   opacity: 0.95;
-}
-
-.about__venue {
-  margin-top: 1.25rem;
-  max-width: 30ch;
-  font-size: 0.8rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.72);
 }
 
 /* -------------------------------------------------------- objectives ------ */
@@ -170,11 +341,6 @@
     margin-top: 0;
   }
 
-  .about__venue {
-    grid-column: 1 / -1;
-    margin-top: 0;
-  }
-
   .about__objectives ol {
     grid-template-columns: 1fr;
   }
@@ -191,6 +357,5 @@
 
   .about__knot {
     opacity: 0.1;
-    bottom: -6%;
   }
 }

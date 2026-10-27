@@ -1,123 +1,162 @@
-.domains__list {
+/* ------------------------------------------------- stacked domain panels -- */
+.dstack {
   position: relative;
-  border-bottom: 1px solid var(--line);
 }
 
-.domain {
-  display: grid;
-  grid-template-columns: minmax(0, 0.4fr) minmax(0, 1fr);
-  border-top: 1px solid var(--line);
-  min-height: clamp(230px, 25vw, 340px);
-}
-
-.domain:nth-child(even) {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.4fr);
-}
-
-.domain:nth-child(even) .domain__panel {
-  order: 2;
-}
-
-.domain__panel {
-  position: relative;
+.dstack__panel {
+  position: sticky;
+  top: 0;
+  height: 100svh;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: clamp(1rem, 2vw, 1.6rem);
-  isolation: isolate;
+  background: var(--ink);
 }
 
-.domain__panel::after {
-  content: '';
+.dstack__panel--pink {
+  background: #120a10;
+}
+
+.dstack__panel--mint {
+  background: #08120e;
+}
+
+.dstack__panel--purple {
+  background: #0d0918;
+}
+
+/* Oversized artwork that drifts with scroll (scale gives parallax headroom) */
+.dstack__art {
   position: absolute;
   inset: 0;
-  background-image: repeating-linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.08) 0 1px,
-    transparent 1px 14%
-  );
-  mix-blend-mode: overlay;
-  z-index: 0;
+  display: grid;
+  place-items: center;
+  scale: 1.3;
+  will-change: transform;
 }
 
-.domain--pink .domain__panel {
-  background: var(--pink-deep);
-  color: #fff;
+.dstack__art img {
+  width: min(78vmin, 720px);
+  height: auto;
+  /* Muted so the shapes read as background texture, not foreground */
+  opacity: 0.35;
+  user-select: none;
 }
 
-.domain--mint .domain__panel {
-  background: var(--mint);
-  color: #07120c;
+/* White band across the middle */
+.dstack__band {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  translate: 0 -50%;
+  overflow: hidden;
+  background: #f4f2f6;
+  color: var(--ink);
 }
 
-.domain--purple .domain__panel {
-  background: var(--purple);
-  color: #fff;
-}
-
-.domain__tag {
-  position: relative;
-  z-index: 1;
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  opacity: 0.8;
-}
-
-.domain__num {
-  position: relative;
-  z-index: 1;
-  align-self: flex-start;
-  font-size: clamp(4rem, 9vw, 8rem);
-  font-weight: 800;
-  line-height: 0.78;
-  letter-spacing: -0.06em;
-  transition: transform 0.6s var(--ease);
-}
-
-.domain:hover .domain__num {
-  transform: translateY(-6px);
-}
-
-.domain__body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: clamp(0.8rem, 1.6vw, 1.2rem);
-  padding: clamp(1.4rem, 3.4vw, 3rem);
-}
-
-.domain__kicker {
+.dstack__band-inner {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 2.5rem;
+  padding-block: 2rem;
+}
+
+/* Description block — fixed on the right. It sits above the sliding name on
+   the band's white, so the name passes underneath instead of over the text. */
+.dstack__meta {
+  order: 2;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  margin-left: auto;
+  padding-left: 2rem;
+  padding-right: var(--gutter);
+  background: #f4f2f6;
+}
+
+.dstack__index {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: rgba(8, 8, 10, 0.45);
 }
 
-.domain__kicker span + span::before {
-  content: '/';
-  margin-right: 1rem;
-  color: var(--pink);
-}
-
-.domain__title {
-  font-size: clamp(1.9rem, 1.1rem + 2.6vw, 3.4rem);
-  line-height: 0.95;
-  letter-spacing: -0.045em;
-  text-transform: uppercase;
-}
-
-.domain__copy {
-  max-width: 56ch;
-  font-size: var(--fs-sm);
+.dstack__blurb {
+  max-width: 34ch;
+  margin-top: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
   line-height: 1.7;
-  color: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Domain name — left side, slides left with scroll (original motion) */
+.dstack__name {
+  order: 1;
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  padding-left: var(--gutter);
+  align-items: baseline;
+  gap: 2rem;
+  will-change: transform;
+}
+
+.dstack__name h3 {
+  white-space: nowrap;
+  font-size: clamp(2.5rem, 8vw, 7rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.dstack__panel--pink .dstack__name h3 {
+  color: var(--pink-deep);
+}
+
+.dstack__panel--mint .dstack__name h3 {
+  color: #0c9f68;
+}
+
+.dstack__panel--purple .dstack__name h3 {
+  color: var(--purple);
+}
+
+.dstack__name span {
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(8, 8, 10, 0.45);
+}
+
+.dstack__count {
+  position: absolute;
+  bottom: 2rem;
+  right: var(--gutter);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(244, 242, 246, 0.6);
+}
+
+@media (min-width: 640px) {
+  .dstack__band-inner {
+    padding-block: 2.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .dstack__band-inner {
+    gap: 1.5rem;
+  }
+
+  .dstack__blurb {
+    max-width: 24ch;
+    font-size: 0.62rem;
+  }
 }
 
 /* ------------------------------------------------------------- CTA row ---- */
@@ -127,7 +166,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 1.5rem 3rem;
-  padding-top: clamp(1.5rem, 3vw, 2.4rem);
+  padding-top: clamp(2.5rem, 5vw, 4rem);
 }
 
 .domains__cta-text {
@@ -147,35 +186,4 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 1.25rem;
-}
-
-@media (max-width: 760px) {
-  .domain,
-  .domain:nth-child(even) {
-    grid-template-columns: 1fr;
-  }
-
-  .domain:nth-child(even) .domain__panel {
-    order: 0;
-  }
-
-  .domain__panel {
-    min-height: 150px;
-    flex-direction: row;
-    align-items: flex-end;
-  }
-
-  .domain__num {
-    font-size: 3.6rem;
-    align-self: flex-end;
-  }
-
-  .domain__body {
-    padding: 1.4rem var(--gutter) 1.8rem;
-    gap: 0.85rem;
-  }
-
-  .domain__copy {
-    font-size: 0.88rem;
-  }
 }

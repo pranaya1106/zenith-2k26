@@ -61,6 +61,7 @@ export const navLinks = [
   { label: 'Domains', href: '#domains' },
   { label: 'Schedule', href: '#schedule' },
   { label: 'Speakers', href: '#speakers' },
+  { label: 'Sponsors', href: '#sponsors' },
   { label: 'FAQ', href: '#faq' },
   { label: 'Contact', href: '#contact' },
 ]
@@ -216,6 +217,18 @@ export const speakers = {
   ],
 }
 
+/**
+ * Sponsors by tier. Each tier lists `slots` placeholder cards until real
+ * sponsors are added to `sponsors`: { name, logo: '/assets/sponsors/x.webp', url }.
+ */
+export const sponsors = {
+  tiers: [
+    { name: 'Title Sponsor', size: 'title', slots: 1, sponsors: [] },
+    { name: 'Associate Sponsors', size: 'associate', slots: 2, sponsors: [] },
+    { name: 'Partners', size: 'partner', slots: 4, sponsors: [] },
+  ],
+}
+
 export const faqs = [
   {
     q: 'What are the hackathon domains?',
@@ -246,8 +259,8 @@ export const faqs = [
 export const contact = {
   email: 'scopeclub@mlrinstitutions.ac.in',
   people: [
-    { name: 'Pranadeep', phone: '+91 79812 13067', tel: '+917981213067' },
-    { name: 'Vignesh', phone: '+91 89783 71629', tel: '+918978371629' },
+    { name: 'Ravindher', phone: '+91 70327 93341', tel: '+917032793341' },
+    { name: 'Aditya', phone: '+91 81259 37615', tel: '+918125937615' },
   ],
   address: {
     line1: 'SCOPE Club — MT003',
