@@ -144,25 +144,78 @@
 }
 
 @media (max-width: 560px) {
-  .footer__top,
+  .footer {
+    padding-top: 2.25rem;
+  }
+
+  /* Nav as a tidy 2-column list instead of a ragged wrap */
+  .footer__top {
+    display: block;
+    padding-bottom: 1.75rem;
+  }
+
+  .footer__top nav {
+    width: 100%;
+  }
+
+  .footer__nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 1.5rem;
+  }
+
+  .footer__nav a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding-block: 0;
+    font-size: 0.95rem;
+  }
+
+  /* A bit more contrast so the wordmark reads on small screens */
+  .footer__wordmark {
+    --wm-color: #222129;
+    padding-block: 2rem 1.75rem;
+  }
+
+  /* Organisers centred on one row, legal line centred below */
   .footer__bottom {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    gap: 1.4rem;
+    padding-block: 1.75rem 2rem;
+    text-align: center;
   }
 
   .footer__org-logos {
-    gap: 1.25rem;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: clamp(0.9rem, 5vw, 1.4rem);
+    width: 100%;
+  }
+
+  .footer__org-logos li {
+    display: flex;
+    min-width: 0;
+  }
+
+  .footer__org-logos img {
+    max-width: 100%;
   }
 
   .footer__org--mlrit {
-    height: 24px;
+    height: 22px;
   }
 
   .footer__org--scope {
-    height: 27px;
+    height: 26px;
   }
 
   .footer__org--aws {
-    height: 21px;
+    height: 20px;
+  }
+
+  .footer__legal {
+    font-size: 0.55rem;
   }
 }

@@ -1,19 +1,11 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { about, event } from '../data/site'
+import { event } from '../data/site'
 import SectionHead from './ui/SectionHead'
 
 gsap.registerPlugin(ScrollTrigger)
 import './About.css'
-
-// Brand shapes per stat, in data order: Days, Domains, Hours (tall), Community Day (wide)
-const tileShapes = [
-  '/assets/shapes/shapes-v4.png',
-  '/assets/shapes/shapes-v3.png',
-  '/assets/shapes/shapes-v1.png',
-  '/assets/shapes/shapes-v2.png',
-]
 
 // Feeds the pointer position to CSS so the tile's spotlight follows the cursor.
 function trackPointer(e) {
@@ -109,7 +101,7 @@ export default function About() {
               encouraging students to develop innovative solutions using technologies like AI, ML
               and other Technologies to solve real-world problems.
             </p>
-            <p className="about__caption">Mission statement · ZENITH ’25 edition</p>
+            <p className="about__caption">Mission statement</p>
           </div>
 
           <aside className="about__aside">
@@ -120,14 +112,6 @@ export default function About() {
                   className={`about__tile about__tile--${index + 1}`}
                   onPointerMove={trackPointer}
                 >
-                  <img
-                    className="about__tile-shape"
-                    src={tileShapes[index]}
-                    alt=""
-                    aria-hidden="true"
-                    loading="lazy"
-                    draggable={false}
-                  />
                   <b>{stat.value}</b>
                   <span>{stat.label}</span>
                 </li>
@@ -145,21 +129,6 @@ export default function About() {
               />
             </div>
           </aside>
-        </div>
-
-        <div className="about__objectives">
-          <div className="about__obj-head">
-            <h3>Key objectives</h3>
-            <span className="label label--plain">06 targets</span>
-          </div>
-          <ol>
-            {about.objectives.map((objective, index) => (
-              <li key={objective}>
-                <span>{String(index + 1).padStart(2, '0')}</span>
-                {objective}
-              </li>
-            ))}
-          </ol>
         </div>
       </div>
     </section>

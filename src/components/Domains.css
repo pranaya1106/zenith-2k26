@@ -1,162 +1,240 @@
-/* ------------------------------------------------- stacked domain panels -- */
-.dstack {
+/* Tighter hand-off from the About section above */
+.domains {
+  padding-top: clamp(2rem, 4vw, 3.5rem);
+}
+
+/* --------------------------------------------- expanding domain panels -- */
+.dpanels {
+  display: flex;
+  gap: clamp(0.6rem, 1vw, 0.9rem);
+  height: clamp(440px, 64vh, 600px);
+}
+
+/* Neutral panels on the shared bg.png texture. --accent only colours the
+   small type details (index, code); no tints or glows. */
+.dpanel {
+  --accent: var(--pink);
+  --px: 0;
+  --py: 0;
   position: relative;
-}
-
-.dstack__panel {
-  position: sticky;
-  top: 0;
-  height: 100svh;
+  flex: 1 1 0;
+  min-width: 0;
   overflow: hidden;
-  background: var(--ink);
+  isolation: isolate;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #121214 url('/assets/texture/domains-bg.webp') center / cover no-repeat;
+  transition:
+    flex-grow 0.75s cubic-bezier(0.65, 0, 0.2, 1),
+    border-color 0.5s var(--ease);
 }
 
-.dstack__panel--pink {
-  background: #120a10;
+.dpanel--mint {
+  --accent: var(--mint);
 }
 
-.dstack__panel--mint {
-  background: #08120e;
+.dpanel--purple {
+  --accent: #8b6cff;
 }
 
-.dstack__panel--purple {
-  background: #0d0918;
+.dpanel.is-active {
+  flex-grow: 5.2;
+  border-color: var(--line-strong);
 }
 
-/* Oversized artwork that drifts with scroll (scale gives parallax headroom) */
-.dstack__art {
+/* Brand shape: same opacity open or collapsed; it grows and drifts
+   against the pointer when the panel is open */
+.dpanel__art {
+  position: absolute;
+  z-index: -1;
+  right: -8%;
+  bottom: -10%;
+  width: min(62%, 440px);
+  height: auto;
+  opacity: 0.35;
+  pointer-events: none;
+  user-select: none;
+  transform: translate3d(calc(var(--px) * -36px), calc(var(--py) * -36px), 0) scale(0.6) rotate(-8deg);
+  transform-origin: 80% 80%;
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dpanel.is-active .dpanel__art {
+  transform: translate3d(calc(var(--px) * -36px), calc(var(--py) * -36px), 0) scale(1) rotate(0deg);
+}
+
+/* ------------------------------------------------- collapsed header ---- */
+/* The toggle covers the whole panel; its visible parts are the index,
+   the vertical label and the + marker. */
+.dpanel__toggle {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: center;
-  scale: 1.3;
-  will-change: transform;
-}
-
-.dstack__art img {
-  width: min(78vmin, 720px);
-  height: auto;
-  /* Muted so the shapes read as background texture, not foreground */
-  opacity: 0.35;
-  user-select: none;
-}
-
-/* White band across the middle */
-.dstack__band {
-  position: absolute;
-  inset-inline: 0;
-  top: 50%;
-  translate: 0 -50%;
-  overflow: hidden;
-  background: #f4f2f6;
-  color: var(--ink);
-}
-
-.dstack__band-inner {
-  display: flex;
-  align-items: center;
-  gap: 2.5rem;
-  padding-block: 2rem;
-}
-
-/* Description block — fixed on the right. It sits above the sliding name on
-   the band's white, so the name passes underneath instead of over the text. */
-.dstack__meta {
-  order: 2;
-  position: relative;
   z-index: 1;
-  flex-shrink: 0;
-  margin-left: auto;
-  padding-left: 2rem;
-  padding-right: var(--gutter);
-  background: #f4f2f6;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 
-.dstack__index {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-variant-numeric: tabular-nums;
-  color: rgba(8, 8, 10, 0.45);
+.dpanel.is-active .dpanel__toggle {
+  cursor: default;
 }
 
-.dstack__blurb {
-  max-width: 34ch;
-  margin-top: 1.25rem;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  line-height: 1.7;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+.dpanel__toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -4px;
+  border-radius: 18px;
 }
 
-/* Domain name — left side, slides left with scroll (original motion) */
-.dstack__name {
-  order: 1;
-  display: flex;
-  flex: 1;
-  min-width: 0;
-  padding-left: var(--gutter);
-  align-items: baseline;
-  gap: 2rem;
-  will-change: transform;
-}
-
-.dstack__name h3 {
-  white-space: nowrap;
-  font-size: clamp(2.5rem, 8vw, 7rem);
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
-}
-
-.dstack__panel--pink .dstack__name h3 {
-  color: var(--pink-deep);
-}
-
-.dstack__panel--mint .dstack__name h3 {
-  color: #0c9f68;
-}
-
-.dstack__panel--purple .dstack__name h3 {
-  color: var(--purple);
-}
-
-.dstack__name span {
-  white-space: nowrap;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(8, 8, 10, 0.45);
-}
-
-.dstack__count {
+.dpanel__index {
   position: absolute;
-  bottom: 2rem;
-  right: var(--gutter);
+  top: clamp(1.25rem, 2vw, 1.75rem);
+  left: clamp(1.1rem, 2vw, 1.6rem);
   font-family: var(--font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.2em;
+  font-size: var(--fs-mono);
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
+/* Vertical name, shown only while collapsed */
+.dpanel__label {
+  position: absolute;
+  bottom: clamp(1.25rem, 2vw, 1.75rem);
+  left: 50%;
+  font-size: clamp(1.15rem, 0.8rem + 1vw, 1.6rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
-  color: rgba(244, 242, 246, 0.6);
+  white-space: nowrap;
+  color: var(--text);
+  writing-mode: vertical-rl;
+  transform: translateX(-50%) rotate(180deg);
+  transition: opacity 0.35s var(--ease), transform 0.5s var(--ease);
 }
 
-@media (min-width: 640px) {
-  .dstack__band-inner {
-    padding-block: 2.5rem;
-  }
+.dpanel.is-active .dpanel__label {
+  opacity: 0;
+  transform: translateX(-50%) translateY(12px) rotate(180deg);
 }
 
-@media (max-width: 640px) {
-  .dstack__band-inner {
-    gap: 1.5rem;
-  }
+/* "+" marker that turns into a "×"-free dash when open */
+.dpanel__plus {
+  position: absolute;
+  top: clamp(1.1rem, 2vw, 1.55rem);
+  right: clamp(1rem, 2vw, 1.4rem);
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  transition: border-color 0.4s var(--ease), background-color 0.4s var(--ease), opacity 0.4s var(--ease);
+}
 
-  .dstack__blurb {
-    max-width: 24ch;
-    font-size: 0.62rem;
-  }
+.dpanel__plus::before,
+.dpanel__plus::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 11px;
+  height: 1.5px;
+  margin: -0.75px 0 0 -5.5px;
+  background: var(--text);
+  transition: transform 0.45s var(--ease), background-color 0.4s var(--ease);
+}
+
+.dpanel__plus::after {
+  transform: rotate(90deg);
+}
+
+.dpanel:not(.is-active):hover .dpanel__plus {
+  border-color: var(--text);
+}
+
+.dpanel.is-active .dpanel__plus {
+  opacity: 0;
+}
+
+/* --------------------------------------------------------- open body ---- */
+.dpanel__body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: grid;
+  gap: 1rem;
+  width: min(100%, 640px);
+  padding: clamp(1.4rem, 3vw, 2.6rem);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.dpanel.is-active .dpanel__body {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  /* Wait for the panel to widen before the text lands */
+  transition: opacity 0.55s var(--ease) 0.3s, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+}
+
+.dpanel__code {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.dpanel__name {
+  font-size: clamp(2.6rem, 1.4rem + 4.4vw, 5.6rem);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.dpanel__desc {
+  max-width: 46ch;
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+  color: rgba(244, 242, 246, 0.78);
+}
+
+.dpanel__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.dpanel__tags li {
+  padding: 0.42rem 0.8rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: rgba(8, 8, 10, 0.4);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+/* Tags arrive one after another once the panel has opened */
+.dpanel.is-active .dpanel__tags li {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.5s var(--ease) calc(0.5s + var(--t) * 0.07s),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) calc(0.5s + var(--t) * 0.07s);
 }
 
 /* ------------------------------------------------------------- CTA row ---- */
@@ -186,4 +264,79 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 1.25rem;
+}
+
+/* ------------------------------------------- mobile: vertical accordion -- */
+@media (max-width: 760px) {
+  .dpanels {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .dpanel {
+    flex: none;
+    height: 76px;
+    transition:
+      height 0.7s cubic-bezier(0.65, 0, 0.2, 1),
+      border-color 0.5s var(--ease),
+      background-color 0.5s var(--ease);
+  }
+
+  .dpanel.is-active {
+    height: 440px;
+  }
+
+  /* Collapsed row: index + name side by side, horizontal */
+  .dpanel__index {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .dpanel__label {
+    top: 50%;
+    bottom: auto;
+    left: 4rem;
+    writing-mode: horizontal-tb;
+    transform: translateY(-50%);
+    font-size: 1.15rem;
+  }
+
+  .dpanel.is-active .dpanel__label {
+    transform: translateY(-50%) translateY(8px);
+  }
+
+  .dpanel__plus {
+    top: 50%;
+    margin-top: -15px;
+  }
+
+  .dpanel.is-active .dpanel__index {
+    top: 1.4rem;
+    transform: none;
+  }
+
+  .dpanel__art {
+    width: 70%;
+  }
+
+  .dpanel__name {
+    font-size: clamp(2.3rem, 11vw, 3.2rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dpanel,
+  .dpanel__art,
+  .dpanel__label,
+  .dpanel__body,
+  .dpanel__tags li,
+  .dpanel.is-active .dpanel__body,
+  .dpanel.is-active .dpanel__tags li {
+    transition: none;
+  }
+
+  .dpanel__art,
+  .dpanel.is-active .dpanel__art {
+    transform: none;
+  }
 }

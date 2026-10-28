@@ -1,6 +1,8 @@
 .about {
   position: relative;
   overflow: clip;
+  /* Less space below now that Key objectives is gone */
+  padding-bottom: clamp(2rem, 4vw, 3.5rem);
 }
 
 /* Keep the mint highlight on the title to match the mission text */
@@ -98,9 +100,11 @@
   flex-direction: column;
   justify-content: flex-end;
   padding: 1rem 1.1rem;
+  border: 1px solid rgba(244, 242, 246, 0.12);
   border-radius: 14px;
-  background: #f4f2f6;
-  color: var(--ink);
+  /* Translucent tile so it sits back on the dark section */
+  background: rgba(244, 242, 246, 0.07);
+  color: var(--text);
   overflow: hidden;
   isolation: isolate;
   transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
@@ -138,6 +142,7 @@
 
 .about__tile:hover {
   transform: translateY(-4px);
+  border-color: rgba(244, 242, 246, 0.22);
   box-shadow: 0 18px 36px rgba(0, 0, 0, 0.45);
 }
 
@@ -170,60 +175,20 @@
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #5c5c60;
-}
-
-/* Brand shape tucked into the top-right corner; drifts and turns on hover */
-.about__tile-shape {
-  position: absolute;
-  top: var(--shape-top, -14%);
-  right: var(--shape-right, -8%);
-  z-index: -1;
-  width: var(--shape-w, 46%);
-  height: auto;
-  pointer-events: none;
-  user-select: none;
-  rotate: var(--shape-rot, 0deg);
-  transition: translate 0.6s var(--ease), rotate 0.6s var(--ease), scale 0.6s var(--ease);
-}
-
-.about__tile:hover .about__tile-shape {
-  translate: -6px 6px;
-  rotate: calc(var(--shape-rot, 0deg) - 8deg);
-  scale: 1.06;
+  color: var(--muted);
 }
 
 /* Tile placement — data order: Days, Domains, Hours, Community Day */
 .about__tile--1 {
-  --accent: var(--pink-deep);
-  --shape-w: 40%;
-  --shape-rot: 10deg;
+  --accent: var(--pink);
   grid-column: 2;
   grid-row: 1;
 }
 
 .about__tile--2 {
-  --accent: #0c9f68;
-  --shape-w: 40%;
-  --shape-rot: -12deg;
+  --accent: var(--mint);
   grid-column: 2;
   grid-row: 2;
-}
-
-.about__tile--3 {
-  --shape-w: 52%;
-  --shape-top: -6%;
-  --shape-right: -10%;
-}
-
-.about__tile--4 {
-  --shape-w: 30%;
-  --shape-top: -38%;
-  --shape-right: auto;
-}
-
-.about__tile--4 .about__tile-shape {
-  left: 32%;
 }
 
 .about__tile--3 {
@@ -272,55 +237,6 @@
   opacity: 0.95;
 }
 
-/* -------------------------------------------------------- objectives ------ */
-.about__objectives {
-  position: relative;
-  margin-top: clamp(3rem, 6vw, 5.5rem);
-}
-
-.about__obj-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--line);
-}
-
-.about__obj-head h3 {
-  font-size: clamp(1rem, 1.4vw, 1.2rem);
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-
-.about__obj-head .label {
-  color: rgba(255, 255, 255, 0.62);
-}
-
-.about__objectives ol {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: clamp(2rem, 6vw, 6rem);
-}
-
-.about__objectives li {
-  display: flex;
-  gap: 1rem;
-  padding-block: 1rem;
-  border-bottom: 1px solid var(--line);
-  font-size: clamp(0.9rem, 1.05vw, 1rem);
-  line-height: 1.5;
-}
-
-.about__objectives li span {
-  flex: none;
-  padding-top: 0.15em;
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.1em;
-  color: var(--mint);
-}
-
 @media (max-width: 900px) {
   .about__grid {
     grid-template-columns: 1fr;
@@ -339,10 +255,6 @@
 
   .about__partner {
     margin-top: 0;
-  }
-
-  .about__objectives ol {
-    grid-template-columns: 1fr;
   }
 }
 

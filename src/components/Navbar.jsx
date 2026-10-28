@@ -117,19 +117,6 @@ export default function Navbar() {
             <img src="/assets/brand/aws-sbg-white.webp" alt="AWS Student Builder Group" />
           </div>
 
-          <a className="nav__brand" href="#top" aria-label={`ZENITH ${event.edition} — back to top`}>
-            <img
-              className="nav__mark"
-              src="/assets/brand/scope-club.webp"
-              alt=""
-              width="555"
-              height="199"
-            />
-            <span className="nav__word">
-              ZENITH<span className="nav__year">’26</span>
-            </span>
-          </a>
-
           <nav className="nav__links" aria-label="Primary">
             <ul>
               {navLinks.map((link) => (
@@ -180,7 +167,7 @@ export default function Navbar() {
       >
         <div className="menu__top container">
           <p className="menu__title label" id="menu-title">
-            {event.organiser} · {event.edition}
+            {event.name} ’26
           </p>
           <button ref={closeRef} type="button" className="menu__close" onClick={closeMenu} tabIndex={open ? 0 : -1}>
             <span>Close</span>

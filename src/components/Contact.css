@@ -202,22 +202,61 @@
 }
 
 @media (max-width: 560px) {
-  .contact__people {
-    grid-template-columns: 1fr;
+  /* Email: fit on one line on most phones, arrow pinned right */
+  .contact__email {
+    align-items: center;
+    padding-bottom: 1.1rem;
+  }
+
+  .contact__email-text {
+    font-size: clamp(0.98rem, 4.6vw, 1.2rem);
+    letter-spacing: -0.03em;
+  }
+
+  .contact__email svg {
+    width: 18px;
+    margin-top: 0;
+  }
+
+  /* Keep the two contacts side by side — numbers are short enough */
+  .contact__person {
+    padding-block: 1rem;
+    padding-right: 0.75rem;
   }
 
   .contact__person + .contact__person {
-    border-left: 0;
-    border-top: 1px solid var(--line);
-    padding-left: 0;
+    padding-left: 1rem;
   }
 
+  .contact__person-phone {
+    font-size: clamp(0.9rem, 4vw, 1.05rem);
+    white-space: nowrap;
+  }
+
+  /* Address full-width, socials as a compact 2x2 grid */
   .contact__meta {
     grid-template-columns: 1fr;
+    gap: 1.75rem;
+    padding-top: 1.5rem;
+  }
+
+  .contact__meta address {
+    line-height: 1.65;
+  }
+
+  .contact__socials {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 1rem;
+  }
+
+  .contact__socials a {
+    min-height: 44px;
+    padding-block: 0;
   }
 
   .contact__card-wrap {
     max-width: 100%;
+    margin-top: 0.5rem;
   }
 }
 

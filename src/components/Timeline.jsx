@@ -127,6 +127,9 @@ export default function Timeline() {
           </div>
         </div>
 
+        {/* The track centres in the space below the label, so tall
+            milestones above the rule can never run into it */}
+        <div className="tl__stage">
         <motion.div ref={trackRef} className="tl__track" style={{ x, y: '-50%' }}>
           <div aria-hidden="true" className="tl__rule" />
           <motion.div aria-hidden="true" className="tl__rule-fill" style={{ scaleX: progress }} />
@@ -159,6 +162,7 @@ export default function Timeline() {
             />
           ))}
         </motion.div>
+        </div>
       </div>
     </section>
   )

@@ -56,38 +56,6 @@
   opacity: 0.9;
 }
 
-/* ---- brand (mobile only) ---- */
-.nav__brand {
-  display: none;
-  align-items: center;
-  gap: 0.75rem;
-  flex: none;
-  min-height: 44px;
-}
-
-.nav__mark {
-  width: auto;
-  height: 24px;
-}
-
-.nav__word {
-  font-size: 1.06rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.nav__year {
-  margin-left: 0.28em;
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  color: var(--mint);
-  vertical-align: 0.35em;
-}
-
 /* ---- floating pill tab ---- */
 .nav__links {
   background: #fff;
@@ -349,13 +317,18 @@
     justify-content: space-between;
   }
 
-  .nav__logos-left,
   .nav__logos-right {
     display: none;
   }
 
-  .nav__brand {
-    display: inline-flex;
+  /* Same white SCOPE + AWS SBG logos as desktop, a touch smaller */
+  .nav__logos-left {
+    flex: none;
+    gap: 0.9rem;
+  }
+
+  .nav__logos-left img {
+    max-height: 24px;
   }
 
   .nav__links {

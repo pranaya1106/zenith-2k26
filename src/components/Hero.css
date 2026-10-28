@@ -630,10 +630,67 @@
     display: none;
   }
 
+  /* Claude bloom: larger, partly off-canvas so it frames the buttons */
   .hero__bloom {
-    bottom: 4%;
-    left: -1.2rem;
-    width: 100px;
+    bottom: 1%;
+    left: -2.6rem;
+    width: 130px;
+    opacity: 0.85;
+  }
+
+  /* Smaller sign so it hangs from the H without covering 2K26 or running
+     off the right edge (centre stays under the H at 84.5%) */
+  .hang-sign {
+    --hang-y: 62%;
+  }
+
+  .hang-sign__string {
+    height: 18px;
+  }
+
+  .hang-sign__board {
+    margin-top: -11px;
+    padding: 1.05rem 0.85rem 0.6rem;
+    border-radius: 5px;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+  }
+
+  .hang-sign__hole {
+    top: 6px;
+    width: 7px;
+    height: 7px;
+  }
+
+  .hang-sign__hole--l {
+    left: calc(14% - 3.5px);
+  }
+
+  .hang-sign__hole--r {
+    right: calc(14% - 3.5px);
+  }
+
+  /* Event card: tighter on small screens */
+  .hero__inner {
+    gap: 1.75rem;
+  }
+
+  .event-card {
+    max-width: none;
+    padding: 1.25rem 1.25rem 1.1rem;
+  }
+
+  .event-card__title {
+    margin-bottom: 0.75rem;
+  }
+
+  .event-card__row {
+    grid-template-columns: 4.6rem 1fr;
+    padding-block: 0.7rem;
+  }
+
+  .event-card__value {
+    font-size: 0.95rem;
   }
 
   .hero__pink {

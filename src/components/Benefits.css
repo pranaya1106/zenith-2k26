@@ -55,6 +55,11 @@
   z-index: 5;
 }
 
+/* Connector curve only exists in the single-column mobile layout */
+.perks__wire {
+  display: none;
+}
+
 /* Scroll-parallax layer (transform driven by GSAP) */
 .perk__parallax {
   will-change: transform;
@@ -131,8 +136,13 @@
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-.perk__logo img {
-  width: 100%;
+/* Plain mint duotone icons, no gradients or effects */
+.perk__logo {
+  color: var(--mint);
+}
+
+.perk__logo svg {
+  width: 70%;
   height: auto;
 }
 
@@ -201,7 +211,30 @@
 @media (max-width: 520px) {
   .perks__list {
     grid-template-columns: var(--card-w);
-    gap: 1.5rem;
+    /* Room for the connector curve between cards */
+    gap: 4.5rem;
+  }
+
+  /* One SVG covering the card stack, in real pixel units (viewBox set from
+     JS to the container size), so the curves keep their true shape and end
+     exactly on the cards. Sits behind the cards (list is z-index 1). */
+  .perks__wire {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .perks__wire path {
+    fill: none;
+    stroke: var(--mint);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 4px rgba(32, 227, 153, 0.6));
   }
 
   .perk:nth-child(n) { --y: 0px; }

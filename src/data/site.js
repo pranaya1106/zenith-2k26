@@ -109,6 +109,7 @@ export const domains = [
     short: 'HLT',
     description:
       'Develop solutions that strengthen healthcare delivery through improved patient care, effective wellness monitoring and streamlined hospital management.',
+    focus: ['Patient care', 'Wellness monitoring', 'Hospital management'],
     accent: 'pink',
   },
   {
@@ -117,6 +118,7 @@ export const domains = [
     short: 'EDU',
     description:
       'Design solutions that enhance personalized learning, increase student engagement and support virtual classrooms, assessment tools and skill-building platforms.',
+    focus: ['Personalised learning', 'Virtual classrooms', 'Assessment tools', 'Skill building'],
     accent: 'mint',
   },
   {
@@ -125,9 +127,23 @@ export const domains = [
     short: 'AGR',
     description:
       'Develop technologies that empower farmers, optimize crop management, improve food quality and address key supply-chain challenges.',
+    focus: ['Crop management', 'Food quality', 'Supply chain', 'Farmer tools'],
     accent: 'purple',
   },
 ]
+
+/**
+ * Problem statements page (/problem-statements/).
+ * Add entries here when the '26 briefs are ready; until then each domain on
+ * the page shows a "releasing soon" placeholder. `domain` must match a
+ * `domains[].name` above so the statement lands under the right heading.
+ *
+ * Example:
+ *   { id: 'HLT-01', domain: 'Healthcare', title: 'Remote vitals triage',
+ *     summary: 'One or two sentences describing the problem.',
+ *     link: 'https://…/brief.pdf' }   // optional: full brief / PDF
+ */
+export const problemStatements = []
 
 export const timeline = {
   provisional: true,

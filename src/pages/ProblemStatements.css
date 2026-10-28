@@ -1,0 +1,207 @@
+/* Standalone problem statements page — reuses the site's tokens and
+   section-head styles; only the page-specific pieces live here. */
+
+.ps-page {
+  min-height: 100svh;
+}
+
+/* ------------------------------------------------------------ top bar ---- */
+.ps-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(8, 8, 10, 0.82);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.ps-bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: var(--nav-h);
+}
+
+.ps-bar__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 44px;
+  font-size: var(--fs-mono);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text);
+  transition: color 0.3s var(--ease);
+}
+
+.ps-bar__back:hover {
+  color: var(--mint);
+}
+
+/* ArrowRight flipped to point back */
+.ps-bar__back-icon {
+  width: 0.95em;
+  height: 0.95em;
+  transform: scaleX(-1);
+  transition: translate 0.3s var(--ease);
+}
+
+.ps-bar__back:hover .ps-bar__back-icon {
+  translate: -3px 0;
+}
+
+.ps-bar__brand img {
+  width: clamp(92px, 9vw, 124px);
+  height: auto;
+}
+
+/* --------------------------------------------------------------- main ---- */
+.ps-main {
+  padding-top: clamp(2.5rem, 6vw, 5rem);
+}
+
+.ps-domains {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+.ps-domain {
+  --ps-accent: var(--pink);
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  padding-top: clamp(1.5rem, 3vw, 2.25rem);
+  border-top: 1px solid var(--line);
+}
+
+.ps-domain--mint {
+  --ps-accent: var(--mint);
+}
+
+.ps-domain--purple {
+  --ps-accent: var(--purple-mid);
+}
+
+.ps-domain__index {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: 0.14em;
+  color: var(--ps-accent);
+}
+
+.ps-domain__name {
+  margin-top: 0.6rem;
+  font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3.4rem);
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.ps-domain__desc {
+  max-width: 42ch;
+  margin-top: 1rem;
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------- statements ---- */
+.ps-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: var(--gap);
+  align-content: start;
+}
+
+.ps-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: clamp(1.25rem, 2vw, 1.6rem);
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  background: linear-gradient(158deg, #1a1a1f 0%, #121215 100%);
+  transition: border-color 0.4s var(--ease), transform 0.4s var(--ease);
+}
+
+.ps-card:hover {
+  border-color: var(--ps-accent);
+  transform: translateY(-3px);
+}
+
+.ps-card__id {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ps-accent);
+}
+
+.ps-card__title {
+  font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.3rem);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.ps-card__summary {
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.ps-card__link {
+  align-self: flex-start;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+/* Placeholder until a domain's statements are added */
+.ps-empty {
+  display: grid;
+  place-items: center;
+  min-height: clamp(140px, 16vw, 200px);
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+}
+
+.ps-empty span {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ps-contact {
+  margin-top: clamp(3rem, 6vw, 5rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-sm);
+  color: var(--muted);
+}
+
+.ps-contact a {
+  color: var(--text);
+  border-bottom: 1px solid var(--line-strong);
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+
+.ps-contact a:hover {
+  color: var(--mint);
+  border-color: var(--mint);
+}
+
+@media (max-width: 860px) {
+  .ps-domain {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ps-card,
+  .ps-bar__back-icon {
+    transition: none;
+  }
+}
