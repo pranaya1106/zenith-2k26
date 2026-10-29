@@ -276,7 +276,7 @@ export const contact = {
   email: 'scopeclub@mlrinstitutions.ac.in',
   people: [
     { name: 'Ravindher', phone: '+91 70327 93341', tel: '+917032793341' },
-    { name: 'Aditya', phone: '+91 81259 37615', tel: '+918125937615' },
+    { name: 'Triveni', phone: '+91 96763 14810', tel: '+919676314810' },
   ],
   address: {
     line1: 'SCOPE Club — MT003',
