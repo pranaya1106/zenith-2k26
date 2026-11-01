@@ -1,0 +1,234 @@
+/* ==========================================================================
+   Countdown — "The voyage begins in"
+   Same construction as the hero's date / location band (see Hero.css ›
+   panels): flat square cells butted together, no gaps, no borders around the
+   whole, no rounding. A lead cell in the poster's deep indigo, three charcoal
+   data cells, and one violet cell for the seconds.
+
+   Colour roles follow DESIGN.md: violet is structure (used once, on the live
+   cell), indigo and charcoal are the surfaces, text is white. Plus Jakarta
+   Sans only.
+   ========================================================================== */
+
+.countdown {
+  --cd-indigo: var(--indigo-band);
+  --cd-bullet: var(--bullet-violet);
+  /* Digit size, shared by the numbers and the register tile's arrow so the two
+     always match. Follows the screen width but is capped by the screen height. */
+  --cd-digit: min(clamp(1.35rem, 0.9rem + 1.7vw, 2.3rem), 5.2vh);
+  display: grid;
+  /* lead | days | hours | mins | secs | register */
+  grid-template-columns: 1.2fr repeat(4, minmax(0, 1fr)) 1.15fr;
+  width: 100%;
+  /* Wider than before (was 680px): the lead cell had been squeezed into three
+     lines once the register tile joined the row */
+  max-width: 800px;
+}
+
+/* The clock wrapper and the list only exist for markup and semantics; their
+   children are the grid items */
+.countdown__clock,
+.countdown__cells {
+  display: contents;
+}
+
+/* ------------------------------------------------------------- lead cell -- */
+.countdown__lead {
+  display: flex;
+  align-items: center;
+  padding: clamp(0.55rem, 1.3vh, 1.1rem) clamp(0.8rem, 1.6vw, 1.3rem);
+  background: var(--cd-indigo);
+  font-size: clamp(0.85rem, 0.75rem + 0.4vw, 1.05rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: #fff;
+  text-align: left;
+}
+
+/* ------------------------------------------------------------ data cells -- */
+.countdown__cell {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 0.7vh, 0.5rem);
+  padding: clamp(0.55rem, 1.3vh, 1.1rem) clamp(0.7rem, 1.4vw, 1.15rem);
+  background: var(--charcoal);
+  border-left: 1px solid rgba(244, 242, 246, 0.08);
+  text-align: left;
+}
+
+/* The live cell: the one violet block. Its own colour is the divider, so the
+   hairline is dropped. */
+.countdown__cell--seconds {
+  background: var(--purple);
+  border-left: 0;
+}
+
+.countdown__label {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
+  font-weight: 500;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+/* Square bullet, the same marker the details band uses */
+.countdown__label::before {
+  content: '';
+  width: 0.62em;
+  height: 0.62em;
+  flex: none;
+  background: var(--cd-bullet);
+}
+
+.countdown__cell--seconds .countdown__label::before {
+  background: var(--violet-tint); /* violet-on-violet would vanish, so the bullet lightens */
+}
+
+/* The value row clips the rolling digit as it enters. The vertical padding
+   and matching negative margin keep descender-free numerals from touching the
+   clip edge without adding height. */
+.countdown__value {
+  display: flex;
+  overflow: hidden;
+  padding-block: 0.06em;
+  margin-block: -0.06em;
+  font-size: var(--cd-digit);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+}
+
+/* Fixed-width digit boxes: the numbers never jiggle as values change */
+.countdown__digit {
+  display: block;
+  min-width: 0.62em;
+  text-align: center;
+}
+
+/* -------------------------------------------------------- register tile -- */
+/* The one white cell, at the end of the strip: the words "Register now" with a
+   small arrow after them, centred in the cell. Ink on white. Mint on hover, the
+   site's hover colour. */
+.countdown__cta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: clamp(0.55rem, 1.3vh, 1.1rem) clamp(0.6rem, 1.2vw, 1rem);
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s var(--ease);
+}
+
+.countdown__cta-label {
+  font-size: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
+  font-weight: 700;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.countdown__cta svg {
+  /* A very small arrow: a pointer after the words, not a graphic of its own */
+  width: 0.85rem;
+  height: 0.85rem;
+  flex: none;
+  transition: transform 0.35s var(--ease);
+}
+
+.countdown__cta:hover {
+  background: var(--mint);
+}
+
+.countdown__cta:hover svg {
+  transform: translate(3px, -3px);
+}
+
+/* The site's focus ring is mint, which disappears on a white or mint cell, so
+   this tile uses an ink ring inside its own edge instead. */
+.countdown__cta:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -4px;
+}
+
+/* ---------------------------------------------------------------- motion -- */
+/* Only a digit created after first paint has .is-roll (see Digit in
+   Countdown.jsx), so only the digit that changed moves. Entrance is a short
+   exponential-out rise: quick enough to read as an update, not as an effect. */
+.countdown__digit.is-roll {
+  animation: countdown-roll 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes countdown-roll {
+  from {
+    opacity: 0;
+    transform: translateY(70%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Reduced motion: the number still updates, it just does not travel */
+@media (prefers-reduced-motion: reduce) {
+  .countdown__digit.is-roll {
+    animation: none;
+  }
+
+  .countdown__cta:hover svg {
+    transform: none;
+  }
+}
+
+/* ============================================================== phones ==== */
+
+@media (max-width: 760px) {
+  /* Three rows, top to bottom: the lead line, the four data cells, and the
+     register bar, which sits under the timer on a phone. Wider than before
+     (was 300px). */
+  .countdown {
+    --cd-digit: min(1.35rem, 3.6vh);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    /* Shares its width with the details panel (set once on .hero__inner) */
+    max-width: var(--stack-w, 340px);
+  }
+
+  .countdown__lead {
+    grid-column: 1 / -1;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.78rem;
+  }
+
+  .countdown__cell {
+    gap: 0.2rem;
+    padding: 0.45rem 0.45rem 0.5rem;
+  }
+
+  .countdown__label {
+    font-size: 0.75rem;
+    gap: 0.35em;
+  }
+
+  /* Full-width white bar under the timer, with the words and the small arrow */
+  .countdown__cta {
+    grid-column: 1 / -1;
+    /* Taller than before (was 0.55rem padding, about 33px high): now at least
+       44px, the usual minimum for a comfortable tap target */
+    padding: 0.8rem 0.9rem;
+    min-height: 44px;
+  }
+
+  /* The first data cell has no hairline to its left: the lead cell is above it */
+  .countdown__cell--days {
+    border-left: 0;
+  }
+}

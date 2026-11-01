@@ -1,0 +1,588 @@
+/* ==========================================================================
+   Hero — "the lit stage"
+   The poster composition, translated to a viewport: a textured dark ground,
+   studio lights in both top corners (CSS glows),
+   the three 3D background forms on the top/left/right edges, the metallic
+   wordmark centred, and the event details in two info panels.
+
+   Stage layer order, back to front (see DESIGN.md › Elevation & Depth):
+     0  texture — bg-texture, one cover image
+     1  shapes  — crimson ribbon (top), violet fold (left), mint stack (right)
+     2  lights  — left/right studio lights, pure CSS gradients
+     content sits above all of it at z-index 2 (a separate stacking context from
+     the stage, which is z-index 0).
+
+   IMPORTANT: anything carrying a data-parallax-* attribute must not use a CSS
+   `transform`, because GSAP writes to that property and would overwrite it.
+   Centring is done with left + a negative margin instead.
+
+   Every resting state here is the visible one. The opening sequence in
+   useHeroIntro.js animates *from* an offset state that GSAP sets at runtime, so no
+   JavaScript and prefers-reduced-motion both land on the finished hero.
+   ========================================================================== */
+
+.hero {
+  /* Lowest point of the crimson ribbon, measured from the top of the hero.
+     Scales with the screen height (17vh) between 7rem and 10.25rem, so on a
+     short screen the ribbon and the content below it both move up and the
+     whole hero still fits; on a tall screen it stops at 10.25rem. */
+  --drop: clamp(6.6rem, 16vh, 10.25rem);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* Top-aligned: the content starts just under the ribbon, and any spare
+     height falls to the bottom instead of being split above the title. */
+  justify-content: flex-start;
+  min-height: 100svh;
+  /* Content starts below the ribbon's lowest point with a little breathing
+     room, so the two never overlap. */
+  padding-top: calc(var(--drop) + clamp(0.4rem, 1.2vh, 1rem));
+  padding-bottom: clamp(0.75rem, 2vh, 2.25rem);
+  background: var(--ink);
+  overflow: clip;
+}
+
+/* ============================================================== stage ==== */
+
+.hero__stage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ---- 0. textured ground ---- */
+/* The brand's bg-texture: one landscape image, centred, never tiled. It is a
+   dark, fully opaque photographic texture, so it replaces the flat ink as the
+   ground. (The source is portrait; it is rotated to landscape 2512x2010 by
+   scripts/prepare-hero-assets.ps1.)
+
+   The image is 1.25x as wide as it is tall. On any landscape hero wider than
+   that ratio (every desktop and laptop), `cover` scales it so its width is
+   exactly the hero's width, centred, with the overflow height cropped equally
+   top and bottom. Only on a hero that is taller than the image (a phone in
+   portrait) does `cover` switch to matching the height and crop the sides. */
+.hero__texture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--ink) url('/assets/hero/bg-texture.jpg') center / cover no-repeat;
+}
+
+/* A small black overlay over the texture only: it sits inside this element, so
+   studio lights and 3D forms above it are not dimmed. */
+.hero__texture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* ---- 1. studio lights in the top corners ---- */
+/* Pure CSS, no images. Each light is one box tucked into its corner, made of
+   two overlapping radial glows and nothing else:
+     - a core glow centred on the corner, eased down over many stops so it
+       falls off smoothly, and
+     - a wider, fainter halo just inside it that spreads the light further
+       toward the middle of the page.
+   There are deliberately no angled wedges or beams: those read as a laser. A
+   radial mask fades the whole thing out with distance, so no edge is visible
+   anywhere. The left and right lights are mirror images. Alpha stays low, and
+   the grain overlay on the page keeps the gradient from banding. */
+.hero__light {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  width: clamp(420px, 54vw, 900px);
+  height: clamp(340px, 74vh, 760px);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.hero__light--left {
+  left: 0;
+  transform-origin: 0 0;
+  background:
+    radial-gradient(
+      ellipse 78% 64% at 0% 0%,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.15) 12%,
+      rgba(255, 255, 255, 0.095) 26%,
+      rgba(255, 255, 255, 0.055) 42%,
+      rgba(255, 255, 255, 0.025) 60%,
+      rgba(255, 255, 255, 0.008) 76%,
+      transparent 90%
+    ),
+    radial-gradient(
+      ellipse 100% 90% at 10% 0%,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(255, 255, 255, 0.03) 45%,
+      transparent 100%
+    );
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 0% 0%, #000 28%, transparent 100%);
+  mask-image: radial-gradient(ellipse 100% 100% at 0% 0%, #000 28%, transparent 100%);
+}
+
+.hero__light--right {
+  right: 0;
+  transform-origin: 100% 0;
+  background:
+    radial-gradient(
+      ellipse 78% 64% at 100% 0%,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.15) 12%,
+      rgba(255, 255, 255, 0.095) 26%,
+      rgba(255, 255, 255, 0.055) 42%,
+      rgba(255, 255, 255, 0.025) 60%,
+      rgba(255, 255, 255, 0.008) 76%,
+      transparent 90%
+    ),
+    radial-gradient(
+      ellipse 100% 90% at 90% 0%,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(255, 255, 255, 0.03) 45%,
+      transparent 100%
+    );
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 28%, transparent 100%);
+  mask-image: radial-gradient(ellipse 100% 100% at 100% 0%, #000 28%, transparent 100%);
+}
+/* ---- 3. the 3D background forms ---- */
+/* Each asset is trimmed to its own alpha bounds (scripts/prepare-hero-assets.ps1),
+   so these offsets position the shape itself, not a transparent canvas. */
+/* Lowest layer above the texture: the studio lights render over the forms, so
+   the lights actually catch them. */
+.hero__shape {
+  position: absolute;
+  z-index: 1;
+  display: block;
+}
+
+/* The shadow lives here, on the wrapper, not on the <img>. A CSS mask clips
+   everything inside its element box, including the image's own drop-shadow.
+   Filtering the wrapper runs the shadow *after* the image (and any mask on it)
+   has been drawn, so it follows the visible shape and is never cut off. */
+.hero__shape-float {
+  display: block;
+  filter: drop-shadow(0 26px 44px rgba(0, 0, 0, 0.45));
+}
+
+.hero__shape img {
+  display: block;
+}
+
+/* Sizing note. The left and right assets are the *cut-off halves* of larger
+   forms, trimmed to their alpha bounds, so their straight edge is meant to sit
+   flush against the viewport edge. They are sized in vw so they scale with the
+   screen and stay prominent, and anchored at left:0 / right:0 with no negative
+   offset (the earlier negative offsets were hiding most of each form). */
+
+/* Crimson ribbon: hangs from the top edge, centred. The nav is a black bar
+   that is solid for its top ~60% and fades out below, so the ribbon is placed
+   to end well below that (--drop from the hero's top edge): its lower lobes
+   then emerge out of the fade, as in the poster. */
+.hero__shape--top {
+  /* Slightly smaller than before (was clamp(240px, 29vw, 470px)) */
+  --w: clamp(215px, 25.5vw, 420px);
+  /* The ribbon's lowest point lands exactly on --drop (set on .hero); its top follows from
+     its height (0.392 = asset height / width). It floats clear of the nav
+     links rather than sitting under them. */
+  top: calc(var(--drop) - var(--w) * 0.392);
+  left: 50%;
+  width: var(--w);
+  margin-left: calc(var(--w) * -0.5);
+}
+
+.hero__shape--top img {
+  width: 100%;
+  height: auto;
+  /* The asset is a cropped piece of a larger form, so its top edge is a flat
+     cut. Now that the ribbon floats free of the page top, that edge would show;
+     this dissolves it into the dark instead. */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 36%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 36%);
+}
+
+/* Violet fold: flush to the left edge, cylinder and box both in view */
+.hero__shape--left {
+  top: 17%;
+  left: 0;
+}
+
+.hero__shape--left img {
+  width: clamp(76px, 7.5vw, 145px);
+  height: auto;
+}
+
+/* Mint ribbon stack: flush to the right edge */
+.hero__shape--right {
+  top: 24%;
+  right: 0;
+}
+
+.hero__shape--right img {
+  width: clamp(150px, 18vw, 330px);
+  height: auto;
+}
+
+/* ============================================================== inner ==== */
+
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* More air between the title, theme, intro line, timer and details than
+     before (was clamp(0.45rem, 1.3vh, 1rem)); still shrinks with the screen */
+  gap: clamp(0.6rem, 2vh, 1.5rem);
+  text-align: center;
+}
+
+/* ------------------------------------------------------- line masking ---- */
+/* Each reveal line sits in its own clipped block so the opening sequence can
+   slide it up from behind the mask. The padding/margin pair keeps descenders
+   from being shaved off by overflow: hidden. */
+.hero__mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
+.hero__rise {
+  display: block;
+}
+
+/* ------------------------------------------------------------- presents -- */
+/* Sits *behind* the wordmark (z-index 1 vs the title's 2). The wordmark pulls
+   up over it, so the two read as one lockup, as in the Figma header. */
+.hero__presents {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(0.95rem, 0.86rem + 0.4vw, 1.25rem);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.hero__presents strong {
+  font-weight: 800;
+}
+
+/* --------------------------------------------------------- the wordmark -- */
+.hero__title {
+  /* 700px on a tall screen (was 660); on a short one it follows the height
+     (76vh, was 72vh), since the wordmark is the tallest single item */
+  --title-max: min(700px, 76vh);
+  position: relative;
+  z-index: 2; /* in front of "SCOPE Club Presents" */
+  width: 100%;
+  max-width: min(100%, var(--title-max));
+  /* The wordmark image carries transparent padding above its letters, which
+     left a wide gap under "SCOPE Club Presents". Pulling the title up by 5% of
+     its own width closes that to the tight lockup in the Figma header. The %
+     resolves against the same containing block as the width above, so it
+     tracks the title's size at every breakpoint. */
+  margin-top: calc(min(100%, var(--title-max)) * -0.05);
+  margin-inline: auto;
+  line-height: 0;
+}
+
+/* No descenders in an image, so no padding compensation needed here */
+.hero__title .hero__mask {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.hero__wordmark {
+  position: relative;
+  display: block;
+}
+
+.hero__wordmark img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* One highlight sweep, clipped to the wordmark's own alpha so it reads as
+   light moving across metal rather than a band crossing a box. Hidden at
+   rest; the opening sequence shows it for a single pass. */
+.hero__sheen {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  -webkit-mask: url('/assets/brand/zenith-wordmark.webp') no-repeat center / 100% 100%;
+  mask: url('/assets/brand/zenith-wordmark.webp') no-repeat center / 100% 100%;
+}
+
+.hero__sheen-bar {
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  left: 0;
+  width: 34%;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.42) 50%,
+    transparent 100%
+  );
+  filter: blur(10px);
+}
+
+/* ------------------------------------------------------ theme and lede --- */
+.hero__theme {
+  font-size: min(clamp(1.3rem, 0.9rem + 1.7vw, 2.3rem), 5.4vh);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  text-wrap: balance;
+}
+
+.hero__lede {
+  /* One line, pure white, on screens wide enough to hold it. Phones wrap it
+     (see the 760px query), where a single line would overflow. */
+  max-width: none;
+  white-space: nowrap;
+  font-size: min(var(--fs-lead), 2.9vh);
+  line-height: 1.5;
+  color: #fff;
+}
+
+/* ============================================================= timer ==== */
+/* Placement only; the component's own look lives in Countdown.css */
+.hero__timer {
+  margin-top: clamp(0.5rem, 1.6vh, 1.2rem);
+}
+
+/* ============================================================= panels ==== */
+/* The date / location band from the Figma header: one flat strip made of two
+   halves butted together, with no gap, no border and no rounding. The left half
+   is the charcoal ground, the right half the deep indigo of the poster's info
+   band. Each has a square violet bullet, a regular-weight label and a bold
+   value. */
+.hero__panels {
+  --band-violet: var(--bullet-violet);
+  display: grid;
+  grid-template-columns: 52fr 48fr;
+  width: 100%;
+  max-width: 680px;
+  margin-top: clamp(0.6rem, 1.8vh, 1.4rem);
+}
+
+.hero__panel {
+  padding: clamp(0.65rem, 1.5vh, 1.3rem) clamp(1rem, 2vw, 1.6rem)
+    clamp(0.7rem, 1.6vh, 1.4rem);
+  background: var(--charcoal);
+  text-align: left;
+}
+
+.hero__panel--accent {
+  background: var(--indigo-band);
+}
+
+.hero__panel-label {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  font-size: clamp(0.8125rem, 0.72rem + 0.25vw, 0.95rem);
+  font-weight: 400;
+  line-height: 1.3;
+  color: #fff;
+}
+
+/* Square bullet, the marker the poster's info band uses */
+.hero__panel-label::before {
+  content: '';
+  width: 0.95em;
+  height: 0.95em;
+  flex: none;
+  background: var(--band-violet);
+}
+
+.hero__panel-value {
+  margin-top: clamp(0.3rem, 0.8vh, 0.6rem);
+  font-size: min(clamp(1.1rem, 0.8rem + 1.05vw, 1.5rem), 4.4vh);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+/* "17th", "18th": raised ordinals, kept the same weight as the date */
+.hero__panel-value sup {
+  font-size: 0.55em;
+  font-weight: 800;
+  line-height: 0;
+  vertical-align: super;
+}
+
+/* The venue runs long and sits a step down the scale, in bold rather than
+   extra bold */
+.hero__panel-value--sm {
+  font-size: min(clamp(0.88rem, 0.72rem + 0.45vw, 1.02rem), 3.3vh);
+  font-weight: 700;
+  line-height: 1.38;
+  letter-spacing: -0.015em;
+}
+/* ========================================================= responsive ==== */
+
+@media (max-width: 1023px) {
+  .hero__title {
+    --title-max: min(570px, 76vh);
+  }
+}
+
+@media (max-width: 760px) {
+  /* One column, everything centred. The timer and the details panel share the
+     same width (--stack-w) and are separated from what is above them by the
+     same space (--stack-gap, on top of the column gap), so the title group,
+     the timer and the details read as three evenly spaced blocks on one
+     centre line. Spare screen height falls to the bottom, not between blocks. */
+  .hero__inner {
+    --stack-w: 340px;
+    /* Space above the timer and above the details panel, added to the column
+       gap. Was 0.5rem (about 18px between blocks in total); now about 33px at
+       a typical phone height, and it shrinks on a shorter screen. */
+    --stack-gap: clamp(1rem, 3.2vh, 1.6rem);
+    flex: 1;
+    gap: clamp(0.5rem, 1.5vh, 0.8rem);
+  }
+
+  /* The wordmark is the tallest item; on a short phone it follows the height.
+     Larger than before (was min(310px, 45vh), and the 45vh was the limit that
+     actually applied on a typical phone). 350px is the full width of the
+     content area on a 390px screen. */
+  .hero__title {
+    --title-max: min(350px, 54vh);
+  }
+
+  /* The title group starts right under the ribbon. It used to take an auto
+     margin here, which split the spare height above and below it and pushed it
+     down; now none of that spare height sits above the title, and it all falls
+     between the timer and the details panel (whose own auto margin takes it). */
+  .hero__presents {
+    margin-top: 0;
+  }
+
+  /* Same space above the timer as above the details panel (see --stack-gap),
+     and nothing extra below it: the old 1rem bottom margin, together with the
+     panel's flexible top margin, is what made the large gap under the timer. */
+  .hero__timer {
+    margin-top: var(--stack-gap);
+    margin-bottom: 0;
+  }
+
+  /* Too long for one line at phone width, so it wraps here and balances */
+  .hero__lede {
+    max-width: 34ch;
+    white-space: normal;
+    text-wrap: balance;
+    font-size: min(0.95rem, 2.6vh);
+    line-height: 1.45;
+  }
+
+  /* Stack the two halves: side by side they would be too narrow for the venue.
+     Kept deliberately compact on a phone: the band should read as a small
+     info strip, not a second hero block. */
+  .hero__panels {
+    grid-template-columns: minmax(0, 1fr);
+    /* Same width as the timer above it (was 300px against the timer's 340px,
+       so their edges did not line up). */
+    max-width: var(--stack-w);
+    /* No longer pinned to the bottom with a flexible margin: it sits one
+       --stack-gap under the timer, like the timer sits under the title group. */
+    margin-top: var(--stack-gap);
+  }
+
+  .hero__panel {
+    padding: 0.5rem 0.85rem 0.55rem;
+  }
+
+  .hero__panel-label {
+    font-size: 0.72rem;
+  }
+
+  .hero__panel-value {
+    margin-top: 0.2rem;
+    font-size: 0.9rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero__panel-value--sm {
+    font-size: 0.78rem;
+    line-height: 1.3;
+  }
+
+  /* Layout on a phone: the content is top-aligned, not centred (centring split
+     the spare screen height above and below it and left a gap under the nav).
+     The text starts a fixed distance below the ribbon; the details panel is
+     pinned to the bottom; the spare height sits between them.
+
+     --ribbon-w is shared so the top padding always clears the ribbon's lowest
+     point: nav height + ribbon height (0.392 = asset height / width) + 1.25rem. */
+  .hero {
+    /* Slightly smaller than before (was clamp(230px, 64vw, 340px)); also
+       capped by the screen height so the ribbon can't eat a short phone */
+    --ribbon-w: min(clamp(200px, 54vw, 290px), 34vh);
+    justify-content: flex-start;
+    /* The last term is the space between the ribbon's lowest point and the
+       title group: 1.6rem (about 26px), up from 0.6rem. */
+    padding-top: calc(var(--nav-h) + var(--ribbon-w) * 0.392 + 1.6rem);
+    padding-bottom: 1rem;
+  }
+
+  /* On a phone the three forms sit above the studio lights, so nothing is
+     drawn over them and they show in their true colours. */
+  .hero__shape {
+    z-index: 4;
+  }
+
+  /* The red ribbon starts at the bottom edge of the nav bar (not at the top of
+     the screen). Its image has a cut top edge, which here meets the bar's
+     bottom edge, so the fade used on desktop is switched off. */
+  .hero__shape--top {
+    --w: var(--ribbon-w);
+    top: var(--nav-h);
+  }
+
+  .hero__shape--top img {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  /* Side forms: full opacity (they had been dimmed to 0.5 / 0.55, which is
+     what made them look covered by a dark overlay). */
+  .hero__shape--left {
+    top: 38%; /* was 46% */
+  }
+
+  .hero__shape--left img {
+    width: clamp(60px, 17vw, 100px);
+  }
+
+  .hero__shape--right {
+    top: 44%; /* was 52% */
+  }
+
+  .hero__shape--right img {
+    width: clamp(118px, 33vw, 180px);
+  }
+
+  /* Studio lights on a phone: the solid nav bar covers the top of the screen,
+     so the lights start just under it (the corner of the visible hero), are
+     narrower, and a little softer to keep the white text readable. */
+  .hero__light {
+    top: var(--nav-h);
+    width: 86vw;
+    height: clamp(260px, 46vh, 460px);
+    opacity: 0.8;
+  }
+}

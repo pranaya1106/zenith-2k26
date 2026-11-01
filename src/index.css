@@ -16,6 +16,13 @@
   --purple-mid: #6861cc;
   --purple-deep: #262746;
 
+  /* Info-band colours, shared by the hero's date / location band and the
+     countdown: the poster's deep indigo, its square bullet, and a tint of the
+     bullet for use on violet. */
+  --indigo-band: #2d2b5f;
+  --bullet-violet: #5b57e6;
+  --violet-tint: #d9d4ff;
+
   /* Signal accents */
   --mint: #20e399;
   --pink: #fb57a6;

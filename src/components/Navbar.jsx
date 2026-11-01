@@ -112,9 +112,30 @@ export default function Navbar() {
     <>
       <header className={`nav${scrolled ? ' is-scrolled' : ''}${hidden ? ' is-hidden' : ''}`}>
         <div className="container nav__inner">
+          {/* One slot at the left holding two logos that take turns (see the CSS):
+              the MLRIT | SCOPE Club logo slides down and out, then the AWS
+              Student Builder Group logo drops in from above, and back again. */}
           <div className="nav__logos-left">
-            <img src="/assets/brand/scope-club-white.webp" alt="SCOPE Club" />
-            <img src="/assets/brand/aws-sbg-white.webp" alt="AWS Student Builder Group" />
+            <div className="nav__brand nav__brand--a">
+              <img
+                className="nav__logo nav__logo--mlrit"
+                src="/assets/brand/mlrit-white.webp"
+                alt="MLR Institute of Technology"
+              />
+              <span className="nav__logo-divider" aria-hidden="true" />
+              <img
+                className="nav__logo nav__logo--scope"
+                src="/assets/brand/scope-club-white.webp"
+                alt="SCOPE Club"
+              />
+            </div>
+            <div className="nav__brand nav__brand--b">
+              <img
+                className="nav__logo nav__logo--aws"
+                src="/assets/brand/aws-sbg-white.webp"
+                alt="AWS Student Builder Group"
+              />
+            </div>
           </div>
 
           <nav className="nav__links" aria-label="Primary">
@@ -133,8 +154,12 @@ export default function Navbar() {
             </ul>
           </nav>
 
-          <div className="nav__logos-right">
-            <img src="/assets/brand/mlrit-white.webp" alt="MLR Institute of Technology" />
+          {/* Desktop only (the phone has its own Register button and Menu button
+              in .nav__actions): the white Register now button */}
+          <div className="nav__cta-right">
+            <RegisterButton className="btn btn--sm btn--primary nav__register">
+              Register now
+            </RegisterButton>
           </div>
 
           <div className="nav__actions">

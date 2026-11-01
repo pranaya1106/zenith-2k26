@@ -1,0 +1,47 @@
+/* ==========================================================================
+   Hero — opening sequence styles
+   Loaded after Hero.css (see Hero.jsx), so the phone ribbon rule below wins over
+   the base one. The sequence itself lives in useHeroIntro.js.
+   ========================================================================== */
+
+/* ======================================================== opening clip ==== */
+/* The title clip has a black ground. `screen` drops the black out so only the
+   lettering lands on the texture. It sits in the stage's stacking context (the
+   stage is z-index 0), so it blends with the texture, forms and lights, and
+   above all of them (z-index 5). Placement, size and travel are set by
+   useHeroIntro.js; at rest it is hidden, so no-JS and reduced-motion get the plain
+   hero. */
+.hero__intro-video {
+  position: absolute;
+  z-index: 5;
+  display: block;
+  max-width: none;
+  opacity: 0;
+  visibility: hidden;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Phone: while the opening sequence plays the navbar is off, so the ribbon
+   hangs from the very top of the screen. When the navbar arrives (the is-intro
+   class leaves <html>) the ribbon settles down to the bar's bottom edge. */
+@media (max-width: 760px) {
+  .hero__shape--top {
+    transition: top 0.9s var(--ease);
+  }
+
+  html.is-intro .hero__shape--top {
+    top: 0;
+  }
+}
+
+/* ===================================================== reduced motion ==== */
+/* The opening sequence and the parallax are gated in JS (gsap.matchMedia), so
+   there is nothing to unwind here: the stage renders at rest. This block only
+   guarantees the sheen can never appear. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__sheen {
+    display: none;
+  }
+}
