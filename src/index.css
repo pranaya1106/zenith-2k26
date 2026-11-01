@@ -45,7 +45,7 @@
 
   /* Space */
   --gutter: clamp(1.25rem, 4vw, 4rem);
-  --section-y: clamp(4.5rem, 8.5vw, 9rem);
+  --section-y: clamp(1.25rem, 2vw, 1.75rem);
   --gap: clamp(1rem, 1.6vw, 1.5rem);
   --container: 1360px;
   --nav-h: 76px;

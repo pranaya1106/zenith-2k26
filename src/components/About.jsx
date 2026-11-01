@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { event } from '../data/site'
+import { event, about } from '../data/site'
 import SectionHead from './ui/SectionHead'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -94,13 +94,11 @@ export default function About() {
 
         <div className="about__grid">
           <div className="about__manifesto">
-            <p className="about__mission">
-              Zenith is a <mark>3-day national event</mark> featuring the AWS Community Day
-              followed by a <mark>24-hour hackathon</mark>. It focuses mainly on{' '}
-              <mark>HealthTech</mark>, with additional domains in EduTech and AgriTech,
-              encouraging students to develop innovative solutions using technologies like AI, ML
-              and other Technologies to solve real-world problems.
-            </p>
+            {about.mission.map((paragraph) => (
+              <p key={paragraph} className="about__mission">
+                {paragraph}
+              </p>
+            ))}
             <p className="about__caption">Mission statement</p>
           </div>
 

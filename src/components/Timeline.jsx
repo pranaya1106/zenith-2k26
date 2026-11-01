@@ -140,9 +140,9 @@ export default function Timeline() {
               <br />
               of show.
             </h2>
-            <p className="tl-label tl__range">Nov 17 → Dec 19 · MLRIT</p>
+            <p className="tl-label tl__range">Dec 17 → Dec 19 · MLRIT</p>
             <p className="tl__lede">
-              Five moments across three days. Keep scrolling — the track travels, the rule draws, and
+              Four moments across three days. Keep scrolling — the track travels, the rule draws, and
               each milestone lands as it comes into view.
             </p>
           </div>

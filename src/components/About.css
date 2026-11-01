@@ -67,6 +67,10 @@
   text-wrap: pretty;
 }
 
+.about__mission + .about__mission {
+  margin-top: 1.1em;
+}
+
 .about__mission mark {
   background: none;
   color: var(--mint);

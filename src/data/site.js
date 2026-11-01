@@ -28,7 +28,7 @@ export const event = {
     compact: '17—19 DEC ’26',
     startISO: '2026-12-17T09:00:00+05:30',
   },
-  format: '2-day national hackathon + AWS Community Day',
+  format: '2-day national hackathon + AWS Student Community Day',
   prizePool: '₹1.5 Lakh',
   fee: '₹499',
   collaborator: 'AWS Student Builder Group at MLRIT',
@@ -70,7 +70,7 @@ export const benefits = [
   {
     index: '01',
     title: 'Network',
-    copy: 'Connect with industry experts and like-minded innovators during the AWS Community Day.',
+    copy: 'Connect with industry experts and like-minded innovators during the AWS Student Community Day.',
   },
   {
     index: '02',
@@ -80,7 +80,7 @@ export const benefits = [
   {
     index: '03',
     title: 'Prize Pool',
-    copy: 'Compete with teams from across the country and win a share of the ₹1,00,000 prize pool.',
+    copy: 'Compete with teams from across the country and win a share of the ₹1,50,000 prize pool.',
   },
   {
     index: '04',
@@ -90,8 +90,10 @@ export const benefits = [
 ]
 
 export const about = {
-  mission:
-    'Zenith is a 3-day national event featuring the AWS Community Day followed by a 24-hour hackathon. It focuses mainly on HealthTech, with additional domains in EduTech and AgriTech, encouraging students to develop innovative solutions using technologies like AI, ML and other Technologies to solve real-world problems.',
+  mission: [
+    'ZENITH ’26 is a three-day national-level technology event organized by SCOPE Club, MLR Institute of Technology, in association with the AWS Student Builder Group. Featuring AWS Student Community Day and a 24-hour hackathon, the event brings together innovators to explore emerging technologies, collaborate, and build impactful solutions.',
+    'ZENITH ’26 provides a platform for participants to explore emerging technologies, exchange ideas, and develop innovative solutions to real-world challenges.',
+  ],
   objectives: [
     'Encourage innovation and problem-solving',
     'Build hands-on learning and skill development',
@@ -105,29 +107,29 @@ export const about = {
 export const domains = [
   {
     index: '01',
-    name: 'Healthcare',
+    name: 'AI for Healthcare',
     short: 'HLT',
     description:
-      'Develop solutions that strengthen healthcare delivery through improved patient care, effective wellness monitoring and streamlined hospital management.',
+      'Develop AI-powered solutions that strengthen healthcare delivery through improved patient care, effective wellness monitoring, and streamlined hospital management.',
     focus: ['Patient care', 'Wellness monitoring', 'Hospital management'],
     accent: 'pink',
   },
   {
     index: '02',
-    name: 'Education',
+    name: 'AI for Education',
     short: 'EDU',
     description:
-      'Design solutions that enhance personalized learning, increase student engagement and support virtual classrooms, assessment tools and skill-building platforms.',
+      'Design AI-powered solutions that enhance personalized learning, increase student engagement, and support virtual classrooms, assessment tools, and skill-building platforms.',
     focus: ['Personalised learning', 'Virtual classrooms', 'Assessment tools', 'Skill building'],
     accent: 'mint',
   },
   {
     index: '03',
-    name: 'AgriTech',
-    short: 'AGR',
+    name: 'AI for Security',
+    short: 'SEC',
     description:
-      'Develop technologies that empower farmers, optimize crop management, improve food quality and address key supply-chain challenges.',
-    focus: ['Crop management', 'Food quality', 'Supply chain', 'Farmer tools'],
+      'Develop AI-powered solutions that strengthen digital security, detect potential threats, improve data protection, and address key cybersecurity challenges.',
+    focus: ['Threat detection', 'Data protection', 'Cybersecurity', 'Fraud detection'],
     accent: 'purple',
   },
 ]
@@ -146,40 +148,33 @@ export const domains = [
 export const problemStatements = []
 
 export const timeline = {
-  provisional: true,
-  sourceLabel: 'Previous edition · ’25 run of show',
-  note:
-    'The final ZENITH ’26 schedule is published with registration. The sequence below is carried over from ZENITH ’25.',
+  provisional: false,
+  sourceLabel: 'ZENITH ’26 schedule',
+  note: 'The ZENITH ’26 run of show: AWS Student Community Day followed by the 24-hour hackathon, 17—19 December.',
   items: [
     {
-      date: 'Nov 17',
-      year: '’25',
-      title: 'Registrations open',
-      copy: 'Start your journey towards Zenith by securing your spot.',
+      date: 'Dec 17',
+      year: '’26',
+      title: 'AWS Student Community Day',
+      copy: 'Gain insights from industry experts, attend interactive sessions, and build valuable professional connections.',
     },
     {
       date: 'Dec 18',
-      year: '’25',
-      title: 'AWS Community Day',
-      copy: 'Gain insights from industry leaders and build valuable professional connections.',
+      year: '’26',
+      title: 'Hackathon kickoff',
+      copy: 'The 24-hour coding challenge officially begins. Teams start building innovative solutions.',
     },
     {
       date: 'Dec 19',
-      year: '’25',
-      title: 'Hackathon kickoff',
-      copy: 'The 24-hour coding challenge officially begins.',
-    },
-    {
-      date: 'Dec 20',
-      year: '’25',
+      year: '’26',
       title: 'Final presentations',
-      copy: 'Teams present their innovative solutions to the judging panel.',
+      copy: 'Teams showcase their projects and present their solutions to the judging panel.',
     },
     {
-      date: 'Dec 20',
-      year: '’25',
+      date: 'Dec 19',
+      year: '’26',
       title: 'Winners announced',
-      copy: 'Recognising outstanding teams and celebrating their achievements.',
+      copy: 'Celebrate innovation and recognize outstanding teams with a share of the ₹1,50,000 prize pool.',
     },
   ],
 }
@@ -248,7 +243,7 @@ export const sponsors = {
 export const faqs = [
   {
     q: 'What are the hackathon domains?',
-    a: 'The hackathon covers three domains: Education, Healthcare and Agriculture.',
+    a: 'The hackathon covers three domains: AI for Healthcare, AI for Education and AI for Security.',
   },
   {
     q: 'What is the structure of the event?',
