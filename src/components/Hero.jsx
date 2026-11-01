@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { event } from '../data/site'
+import { event, links } from '../data/site'
 import RegisterButton from './RegisterButton'
 import { ArrowDown } from './ui/Icons'
 import { TiltCard, TiltCardItem } from './TiltCard'
@@ -91,7 +91,15 @@ export default function Hero() {
                 </div>
                 <div className="event-card__row">
                   <span className="event-card__label">Venue</span>
-                  <span className="event-card__value">MLRIT, Hyderabad</span>
+                  <a
+                    className="event-card__value venue-link"
+                    href={links.venueMap}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="MLRIT, Hyderabad (open in Google Maps)"
+                  >
+                    MLRIT, Hyderabad
+                  </a>
                 </div>
                 <div className="event-card__row">
                   <span className="event-card__label">Format</span>

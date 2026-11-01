@@ -120,10 +120,9 @@ export default function Timeline() {
     <section ref={sectionRef} id="schedule" className="tl" aria-labelledby="schedule-title">
       <div className="tl__sticky">
         <div className="tl__head">
-          <div className="tl-label tl__sec">
-            <span className="tl-accent-text">SEC. 04</span>
-            <span aria-hidden="true" className="tl__sec-rule" />
-            <span>Event Timeline</span>
+          {/* Same label treatment as every other section's SectionHead */}
+          <div className="container tl__sec">
+            <span className="label">04 — Event timeline</span>
           </div>
         </div>
 

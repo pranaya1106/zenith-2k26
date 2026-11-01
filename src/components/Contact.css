@@ -112,6 +112,39 @@
   color: #fff;
 }
 
+/* Address opens the venue in Google Maps */
+.contact__address-link {
+  display: inline-block;
+  transition: color 0.3s var(--ease);
+}
+
+.contact__address-link:hover {
+  color: var(--mint);
+}
+
+.contact__map-cta {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--mint);
+}
+
+.contact__map-cta svg {
+  width: 11px;
+  height: 11px;
+  transition: transform 0.3s var(--ease);
+}
+
+.contact__address-link:hover .contact__map-cta svg {
+  transform: translate(2px, -2px);
+}
+
 .contact__socials {
   display: grid;
   gap: 0.35rem;
