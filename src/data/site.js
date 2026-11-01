@@ -48,6 +48,14 @@ export const links = {
   /** Genuine previous-edition destinations. */
   problemStatementsArchive: 'https://zenithps.vercel.app/',
   itineraryArchive: 'https://zenith-itinerary.vercel.app/',
+  /**
+   * Google Maps for the venue (MLRIT, Dundigal). A full google.com/maps URL
+   * rather than the maps.app.goo.gl short link, which some networks and
+   * blockers refuse to load. Works on desktop and opens the Maps app on phones.
+   * Short link supplied: https://maps.app.goo.gl/KSZw5SexpNYxSbYD6
+   */
+  venueMap:
+    'https://www.google.com/maps/search/?api=1&query=MLR+Institute+of+Technology%2C+Dundigal%2C+Hyderabad%2C+Telangana+500043',
   social: {
     instagram: 'https://www.instagram.com/mlrit_scope/',
     linkedin: 'https://www.linkedin.com/in/scope-club-mlrit-9017541a3/',
@@ -128,8 +136,8 @@ export const domains = [
     name: 'AI for Security',
     short: 'SEC',
     description:
-      'Develop AI-powered solutions that strengthen digital security, detect potential threats, improve data protection, and address key cybersecurity challenges.',
-    focus: ['Threat detection', 'Data protection', 'Cybersecurity', 'Fraud detection'],
+      'Developing AI-powered solutions for cybersecurity, surveillance, threat detection, monitoring, and public safety.',
+    focus: ['Cybersecurity', 'Surveillance', 'Threat detection', 'Public safety'],
     accent: 'purple',
   },
 ]

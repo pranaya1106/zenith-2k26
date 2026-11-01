@@ -84,6 +84,7 @@
   color: #fff;
 }
 
+
 /* ---- Event info card: small screens ---- */
 /* These lived in Hero.css while the hero carried an event card. They are
    global `.event-card` rules that the Contact section's card also relies on,
@@ -106,4 +107,19 @@
   .event-card__value {
     font-size: 0.95rem;
   }
+}
+
+/* Venue value opens Google Maps: dotted underline, mint on hover */
+.venue-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: rgba(255, 255, 255, 0.4);
+  text-underline-offset: 0.22em;
+  transition: color 0.3s var(--ease), text-decoration-color 0.3s var(--ease);
+}
+
+.venue-link:hover {
+  color: var(--mint);
+  text-decoration-color: var(--mint);
 }

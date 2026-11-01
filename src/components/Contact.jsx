@@ -48,6 +48,13 @@ export default function Contact() {
               <div>
                 <h3>Visit</h3>
                 <address>
+                  <a
+                    className="contact__address-link"
+                    href={links.venueMap}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Venue address (open in Google Maps)"
+                  >
                   {contact.address.line1}
                   <br />
                   {contact.address.line2}
@@ -55,6 +62,11 @@ export default function Contact() {
                   {contact.address.line3}
                   <br />
                   {contact.address.line4}
+                  <span className="contact__map-cta">
+                    Open in Maps
+                    <ArrowUpRight />
+                  </span>
+                  </a>
                 </address>
               </div>
 
@@ -100,7 +112,17 @@ export default function Contact() {
                   </div>
                   <div className="event-card__row">
                     <dt className="event-card__label">Venue</dt>
-                    <dd className="event-card__value">{event.institutionShort}, Hyderabad</dd>
+                    <dd className="event-card__value">
+                      <a
+                        className="venue-link"
+                        href={links.venueMap}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${event.institutionShort}, Hyderabad (open in Google Maps)`}
+                      >
+                        {event.institutionShort}, Hyderabad
+                      </a>
+                    </dd>
                   </div>
                 </dl>
               </TiltCardItem>
