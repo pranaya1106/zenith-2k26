@@ -1,0 +1,192 @@
+/* ==========================================================================
+   About ZENITH — scroll-led statement
+   A dark, textured stage with a faint light on the middle of the headline, a
+   pink star floating over the text, and a green 3D form that rises from the
+   bottom edge up over the last line.
+
+   Layer order inside the stage, back to front:
+     texture (the stage background)   0 light   1 text   2 star   3 green form
+   The scroll animation is in useAboutZenithScroll.js. Every resting value here
+   is the finished composition, so no-JS and reduced motion get it as is.
+   ========================================================================== */
+
+.zenith {
+  position: relative;
+  background: #040407;
+  color: var(--text);
+}
+
+/* Scroll distance the animation plays over */
+.zenith__runway {
+  position: relative;
+  height: 430vh;
+}
+
+/* The hero's texture under a dark overlay, so the two sections feel related
+   but this one stays mostly black. */
+.zenith__stage {
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/assets/hero/bg-texture.jpg') center / cover no-repeat,
+    #040407;
+}
+
+.zenith__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  /* Width of the green form. The headline is lifted a little off the middle
+     so the form only overlaps its last line in part. */
+  --shape-w: clamp(260px, 46vw, 720px);
+  padding-inline: var(--gutter);
+  padding-bottom: calc(var(--shape-w) * 0.14);
+}
+
+/* ---- the light ---- */
+/* Not a glow: a small, low light sitting on the middle of the text. Peak
+   alpha is kept very low and it falls away fast, so the stage stays dark. */
+.zenith__light {
+  position: absolute;
+  inset: 0 0 calc(var(--shape-w) * 0.14);
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 24% 27% at 50% 50%,
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0.1) 45%,
+    rgba(255, 255, 255, 0.03) 75%,
+    transparent 100%
+  );
+}
+
+/* ---- text ---- */
+.zenith__title {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 800;
+  /* Four lines on desktop (GET / READY / FOR THE / HACK VERSE), sized by
+     whichever is tighter: the width of "HACK VERSE" or the screen height */
+  font-size: min(12.5vw, 17svh);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  text-shadow: 0 4px 40px rgba(10, 8, 40, 0.5);
+}
+
+/* Desktop: the words of a row sit side by side */
+.zenith__row {
+  display: flex;
+  justify-content: center;
+  column-gap: 0.28em;
+}
+
+.zenith__line {
+  display: block;
+}
+
+/* The A and K of HACK use a different face. Showcard Gothic is used where it
+   is installed; Rammetto One (loaded from Google Fonts) is the stand-in
+   everywhere else. */
+.zenith__alt {
+  font-family: 'Showcard Gothic', 'Rammetto One', var(--font-sans);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* ---- the pink star, over the middle of the text ---- */
+.zenith__star {
+  position: absolute;
+  inset: 0 0 calc(var(--shape-w) * 0.14);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.zenith__star img {
+  display: block;
+  width: clamp(72px, 12vw, 160px);
+  height: auto;
+  filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.45));
+}
+
+/* ---- the green form ---- */
+/* Rests flat on the bottom edge. The scroll animation lifts it from below the
+   screen up over the last line of the headline. */
+.zenith__shape {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.zenith__shape img {
+  display: block;
+  flex: none;
+  width: var(--shape-w);
+  height: auto;
+  max-width: none;
+  filter: drop-shadow(0 -14px 30px rgba(0, 0, 0, 0.5));
+}
+
+/* ---- the purple corner pieces ---- */
+.zenith__burst {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ---- phones ---- */
+@media (max-width: 760px) {
+  .zenith__runway {
+    height: 380vh;
+  }
+
+  /* Wider than tall on a phone, to stay in proportion with the screen */
+  .zenith__light {
+    background: radial-gradient(
+      ellipse 56% 20% at 50% 50%,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.1) 45%,
+      rgba(255, 255, 255, 0.03) 75%,
+      transparent 100%
+    );
+  }
+
+  .zenith__stage {
+    /* Wider than the screen: the sides clip, the bottom stays on the edge */
+    --shape-w: 115vw;
+  }
+
+  /* Phones keep one word per line */
+  .zenith__title {
+    font-size: min(21vw, 16.5svh);
+  }
+
+  .zenith__row {
+    display: contents;
+  }
+}
+
+/* ---- reduced motion: the finished composition, no scroll runway ---- */
+@media (prefers-reduced-motion: reduce) {
+  .zenith__runway {
+    height: auto;
+  }
+
+  .zenith__stage {
+    position: relative;
+  }
+}

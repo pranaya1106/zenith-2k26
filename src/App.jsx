@@ -1,5 +1,6 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
+import AboutZenith from './components/AboutZenith'
 import Benefits from './components/Benefits'
 import About from './components/About'
 import Domains from './components/Domains'
@@ -31,6 +32,7 @@ function Page() {
 
       <main id="main">
         <Hero />
+        <AboutZenith />
         <Benefits />
         <About />
         <Domains />
