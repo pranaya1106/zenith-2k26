@@ -132,7 +132,7 @@ export default function Contact() {
                   Register for ZENITH ’26
                 </RegisterButton>
                 <p className="contact__card-note">
-                  The portal opens shortly. Write to us and we’ll send the link the day it does.
+                  Registration is open on Unstop. Questions? Write to us any time.
                 </p>
               </TiltCardItem>
             </TiltCard>

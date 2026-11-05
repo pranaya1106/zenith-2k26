@@ -130,7 +130,7 @@ export default function Hero() {
           <div className="hero__panel">
             <dt className="hero__panel-label">Date</dt>
             <dd className="hero__panel-value">
-              17<sup>th</sup> – 18<sup>th</sup> December ‘26
+              17<sup>th</sup> – 19<sup>th</sup> December ‘26
             </dd>
           </div>
           <div className="hero__panel hero__panel--accent">

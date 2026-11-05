@@ -41,8 +41,9 @@ export const event = {
 }
 
 export const links = {
-  /** Set to the live '26 registration URL when published. `null` opens the status dialog. */
-  registration: null,
+  /** Live '26 registration (Unstop). Every RegisterButton links here. */
+  registration:
+    'https://unstop.com/o/nVtipkH?lb=y8puo0h&utm_medium=Share&utm_source=online_coding_challenge&utm_campaign=Scopesco2995',
   /** Set to the live '26 problem statement URL when published. `null` opens the status dialog. */
   problemStatements: null,
   /** Genuine previous-edition destinations. */
