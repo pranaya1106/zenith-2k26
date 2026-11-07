@@ -144,17 +144,49 @@ export const domains = [
 ]
 
 /**
- * Problem statements page (/problem-statements/).
- * Add entries here when the '26 briefs are ready; until then each domain on
- * the page shows a "releasing soon" placeholder. `domain` must match a
- * `domains[].name` above so the statement lands under the right heading.
+ * Problem statements page (/problem-statements/), from the official
+ * "Problem Statements for ZENITH’26" brief. `domain` must match a
+ * `domains[].name` above so each statement lands under the right heading;
+ * a domain with no entries shows a "releasing soon" placeholder.
  *
- * Example:
- *   { id: 'HLT-01', domain: 'Healthcare', title: 'Remote vitals triage',
- *     summary: 'One or two sentences describing the problem.',
- *     link: 'https://…/brief.pdf' }   // optional: full brief / PDF
+ * Fields: id, domain, title, summary (card teaser), description, objective,
+ * optional `link` (full brief / PDF).
  */
-export const problemStatements = []
+export const problemStatements = [
+  {
+    id: 'PS-01',
+    domain: 'AI for Healthcare',
+    title: 'AI-assisted hospital coordination and patient flow',
+    summary:
+      'Prioritise patients, find the right bed across hospitals and cut waiting times at OPD, IPD and diagnostic labs.',
+    description:
+      'Arundhathi Hospital receives patients through its Outpatient Department (OPD) and Emergency Department. During high patient inflow, manual assessment and coordination can make it difficult to prioritize patients, identify suitable beds, and manage queues. Bed and specialized-facility availability changes continuously, while information across hospitals may be maintained independently. Patients may also experience long waits at OPD/IPD services and diagnostic labs when counters or processing stages are overloaded. The proposed system uses available vitals, symptoms, medical history, and test results to generate a severity and priority recommendation for clinical staff review. It matches care recommendations with local bed availability, queries participating hospitals when necessary, manages patient and lab queues, and presents live operational status and demand forecasts. Clinical decisions remain with qualified healthcare professionals.',
+    objective:
+      'To design and develop an AI-assisted healthcare coordination and hospital management platform that evaluates patient information, supports severity assessment, and recommends appropriate levels of care such as OPD, IPD, ICU, or specialized medical units based on patient requirements. The platform monitors real-time bed availability at Arundhathi Hospital and, when the required capacity is unavailable, connects with participating hospitals through an integrated Bed Availability API to identify suitable alternative facilities. It also streamlines patient flow by managing OPD consultations, IPD admissions, and diagnostic laboratory queues, reducing waiting times and improving resource allocation. Additionally, AI-driven analytics, centralized operational dashboards, and short-term patient demand forecasting help hospital administrators monitor resource utilization, plan staffing requirements, and make informed operational decisions, ultimately improving coordination and efficiency across healthcare facilities.',
+  },
+  {
+    id: 'PS-02',
+    domain: 'AI for Education',
+    title: 'AI-assisted coding assessment platform',
+    summary:
+      'Assess real engineering skills: debugging, optimisation and working with AI coding agents on existing codebases.',
+    description:
+      'Traditional coding assessments primarily focus on predefined programming problems, Data Structures and Algorithms (DSA), and competitive programming challenges, often overlooking the practical engineering skills required in modern software development. With the increasing adoption of AI-powered coding agents, developers must be capable of understanding existing codebases, identifying bugs, debugging complex issues, optimizing algorithms, improving performance, and effectively communicating with AI agents through structured prompts. However, conventional assessment platforms do not adequately evaluate these emerging skills or measure how efficiently candidates leverage AI tools to solve real-world software engineering problems. Therefore, there is a need for an AI-assisted coding assessment platform that provides time-bound, real-world development challenges involving existing projects with seeded bugs, inefficient algorithms, performance bottlenecks, and incomplete requirements. The platform should integrate AI coding agents, track developer interactions and resource consumption, validate code modifications through automated testing, evaluate algorithmic and performance improvements, and generate comprehensive scores and leaderboards to assess students based on their practical software engineering and AI-assisted development capabilities.',
+    objective:
+      "To design and develop an AI-assisted software engineering assessment platform that evaluates students' practical coding abilities, problem-solving skills, and proficiency in working with AI-powered coding agents through real-world development challenges. The platform provides a time-bound assessment environment containing existing software projects with intentionally introduced bugs, inefficient algorithms, performance bottlenecks, and incomplete requirements. Students can use integrated AI coding agents to understand codebases, identify issues, debug implementations, optimize performance, and improve code quality through effective prompt engineering. The system will be implemented with AI agent integration, automated code execution, test case validation, and performance analysis to evaluate the correctness, efficiency, and quality of submitted solutions. It will also track prompt interactions, token consumption, API usage, execution time, and code modifications to measure the effectiveness of AI-assisted development. An intelligent evaluation engine will analyze the final codebase, detect regressions, verify implemented requirements, and generate a comprehensive performance score out of 100. Additionally, a leaderboard system will rank participants based on their algorithmic problem-solving, code comprehension, debugging, prompt engineering, optimization, and overall software engineering efficiency.",
+  },
+  {
+    id: 'PS-03',
+    domain: 'AI for Security',
+    title: 'AI-powered campus-wide security surveillance',
+    summary:
+      'Turn existing CCTV into real-time threat detection with instant, timestamped alerts and video evidence.',
+    description:
+      'Ensuring safety and security across large college campuses has become increasingly challenging due to the presence of multiple buildings, classrooms, laboratories, hostels, playgrounds, and entry and exit points. Traditional CCTV surveillance systems primarily rely on manual observation by security personnel, making it difficult to continuously oversee multiple camera feeds and identify security violations in real time. Incidents such as physical altercations, unauthorized entry, wall climbing or jumping, restricted-area access, suspicious movements, and other potentially dangerous activities may go unnoticed or be reported only after significant delays. The absence of an intelligent, centralized surveillance mechanism also makes incident identification, evidence collection, and timely response difficult. Therefore, there is a need for an AI-powered, campus-wide security surveillance system that integrates with existing CCTV infrastructure, uses computer vision and deep learning techniques to automatically detect potential security threats, and generates instant alerts with timestamps and visual evidence. Such a system would enable security personnel and college administrators to oversee multiple campus locations efficiently, respond quickly to potential incidents, maintain incident records, and improve the overall safety and security of students, faculty, and staff.',
+    objective:
+      'To design and develop an AI-powered, campus-wide security surveillance system that integrates with existing CCTV infrastructure to provide intelligent, real-time surveillance across the entire college premises, including academic blocks, classrooms, laboratories, hostels, playgrounds, corridors, parking areas, entrances, and boundary walls. The system aims to leverage computer vision and deep learning techniques to automatically identify potential security threats and unusual activities such as physical altercations, fighting, unauthorized entry or exit, wall climbing or jumping, restricted-area access, and other suspicious or unsafe activities. It will process live CCTV video streams, detect potential violations, and generate instant, timestamped alerts along with relevant video clips or visual evidence to enable security personnel to take timely action. The platform will be implemented with a centralized surveillance dashboard, real-time alert notifications, incident tracking, and secure event storage to provide a unified view of campus security. By reducing dependence on manual CCTV observation and enabling automated threat detection, the system aims to improve incident response, strengthen campus security, and create a safer environment for students, faculty, and staff.',
+  },
+]
 
 export const timeline = {
   provisional: false,

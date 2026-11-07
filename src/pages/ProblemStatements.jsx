@@ -5,6 +5,7 @@
  * each hackathon domain. Domains with no statements yet show a placeholder,
  * so the page is ready to publish before the briefs are written.
  */
+import { useState } from 'react'
 import { contact, domains, problemStatements } from '../data/site'
 import SectionHead from '../components/ui/SectionHead'
 import { ArrowRight, ArrowUpRight } from '../components/ui/Icons'
@@ -12,11 +13,49 @@ import '../App.css'
 import './ProblemStatements.css'
 
 function StatementCard({ statement }) {
+  const [open, setOpen] = useState(false)
+  const detailId = `${statement.id}-detail`
+  const hasDetail = Boolean(statement.description || statement.objective)
+
   return (
-    <li className="ps-card">
+    <li className={`ps-card${open ? ' is-open' : ''}`}>
       <span className="ps-card__id">{statement.id}</span>
       <h3 className="ps-card__title">{statement.title}</h3>
       {statement.summary ? <p className="ps-card__summary">{statement.summary}</p> : null}
+
+      {hasDetail ? (
+        <>
+          {/* Collapsed with grid rows so the height animates without JS measuring */}
+          <div className="ps-card__detail" id={detailId} aria-hidden={!open} inert={!open ? '' : undefined}>
+            <div className="ps-card__detail-inner">
+              {statement.description ? (
+                <section>
+                  <h4>Problem description</h4>
+                  <p>{statement.description}</p>
+                </section>
+              ) : null}
+              {statement.objective ? (
+                <section>
+                  <h4>Objective</h4>
+                  <p>{statement.objective}</p>
+                </section>
+              ) : null}
+            </div>
+          </div>
+
+          <button
+            type="button"
+            className="ps-card__toggle"
+            aria-expanded={open}
+            aria-controls={detailId}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? 'Hide full statement' : 'Read full statement'}
+            <span className="ps-card__chev" aria-hidden="true" />
+          </button>
+        </>
+      ) : null}
+
       {statement.link ? (
         <a className="arrow-link ps-card__link" href={statement.link} target="_blank" rel="noopener noreferrer">
           Read the full brief
@@ -99,6 +138,11 @@ export default function ProblemStatements() {
               )
             })}
           </div>
+
+          <p className="ps-notice">
+            Detailed versions of the selected problem statements will be shared before the hackathon
+            begins.
+          </p>
 
           <p className="ps-contact">
             Questions about a brief? Write to{' '}

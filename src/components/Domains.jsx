@@ -156,7 +156,7 @@ export default function Domains() {
         <div className="domains__cta" data-reveal>
           <div className="domains__cta-text">
             <span className="label label--pink">Next step</span>
-            <p>The ’26 problem statements land here before kickoff.</p>
+            <p>The ’26 problem statements are out. Read the full brief for each domain.</p>
           </div>
           <div className="domains__cta-actions">
             <a className="btn btn--primary" href="/problem-statements/">

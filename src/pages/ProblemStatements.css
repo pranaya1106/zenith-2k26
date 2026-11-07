@@ -110,7 +110,7 @@
 /* ------------------------------------------------------- statements ---- */
 .ps-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  grid-template-columns: 1fr;
   gap: var(--gap);
   align-content: start;
 }
@@ -157,6 +157,81 @@
   padding-top: 0.5rem;
 }
 
+/* Expandable full statement (description + objective) */
+.ps-card__detail {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s var(--ease);
+}
+
+.ps-card.is-open .ps-card__detail {
+  grid-template-rows: 1fr;
+}
+
+.ps-card__detail-inner {
+  display: grid;
+  gap: 1.25rem;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.ps-card.is-open .ps-card__detail-inner {
+  padding-top: 0.5rem;
+}
+
+.ps-card__detail h4 {
+  margin-bottom: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ps-accent);
+}
+
+.ps-card__detail p {
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: rgba(244, 242, 246, 0.82);
+}
+
+.ps-card__toggle {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 0.6rem;
+  min-height: 44px;
+  margin-top: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text);
+  cursor: pointer;
+  transition: color 0.3s var(--ease);
+}
+
+.ps-card__toggle:hover {
+  color: var(--ps-accent);
+}
+
+.ps-card__chev {
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.4s var(--ease);
+}
+
+.ps-card.is-open .ps-card__chev {
+  transform: translateY(2px) rotate(-135deg);
+}
+
 /* Placeholder until a domain's statements are added */
 .ps-empty {
   display: grid;
@@ -174,8 +249,22 @@
   color: var(--muted);
 }
 
+/* Standing note under the statements */
+.ps-notice {
+  max-width: 62ch;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding: 1.1rem 1.4rem;
+  border-radius: 12px;
+  /* Solid brand mint (the same green as the "briefly" headings), dark text */
+  background: var(--mint);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
 .ps-contact {
-  margin-top: clamp(3rem, 6vw, 5rem);
+  margin-top: 1.5rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--line);
   font-size: var(--fs-sm);
@@ -201,6 +290,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ps-card,
+  .ps-card__detail,
+  .ps-card__chev,
   .ps-bar__back-icon {
     transition: none;
   }
