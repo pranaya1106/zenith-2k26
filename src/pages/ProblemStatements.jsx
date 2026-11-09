@@ -12,6 +12,9 @@ import { ArrowRight, ArrowUpRight } from '../components/ui/Icons'
 import '../App.css'
 import './ProblemStatements.css'
 
+const NOTICE =
+  'Detailed versions of the selected problem statements will be shared before the hackathon begins.'
+
 function StatementCard({ statement }) {
   const [open, setOpen] = useState(false)
   const detailId = `${statement.id}-detail`
@@ -106,6 +109,8 @@ export default function ProblemStatements() {
             wide
           />
 
+          <p className="ps-notice ps-notice--top">{NOTICE}</p>
+
           <div className="ps-domains">
             {domains.map((domain) => {
               const items = problemStatements.filter((s) => s.domain === domain.name)
@@ -139,10 +144,7 @@ export default function ProblemStatements() {
             })}
           </div>
 
-          <p className="ps-notice">
-            Detailed versions of the selected problem statements will be shared before the hackathon
-            begins.
-          </p>
+          <p className="ps-notice">{NOTICE}</p>
 
           <p className="ps-contact">
             Questions about a brief? Write to{' '}
