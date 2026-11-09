@@ -144,8 +144,6 @@ export default function ProblemStatements() {
             })}
           </div>
 
-          <p className="ps-notice">{NOTICE}</p>
-
           <p className="ps-contact">
             Questions about a brief? Write to{' '}
             <a href={`mailto:${contact.email}`}>{contact.email}</a>.

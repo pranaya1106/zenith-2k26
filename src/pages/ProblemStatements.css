@@ -252,7 +252,7 @@
 /* Standing note under the statements */
 .ps-notice {
   max-width: 62ch;
-  margin-top: clamp(2.5rem, 5vw, 4rem);
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
   padding: 1.1rem 1.4rem;
   border-radius: 12px;
   /* Solid brand mint (the same green as the "briefly" headings), dark text */
@@ -263,14 +263,8 @@
   color: var(--ink);
 }
 
-/* Same note at the start of the page: sits under the heading, above the domains */
-.ps-notice--top {
-  margin-top: 0;
-  margin-bottom: clamp(2.5rem, 5vw, 4rem);
-}
-
 .ps-contact {
-  margin-top: 1.5rem;
+  margin-top: clamp(3rem, 6vw, 5rem);
   padding-top: 1.5rem;
   border-top: 1px solid var(--line);
   font-size: var(--fs-sm);
