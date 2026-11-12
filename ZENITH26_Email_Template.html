@@ -13,11 +13,19 @@
     table { border-collapse:collapse !important; }
     img { border:0; outline:none; text-decoration:none; -ms-interpolation-mode:bicubic; }
     a { text-decoration:none; }
+    @media screen and (min-width:641px) {
+      .date-cell { padding:20px 10px 22px !important; }
+      .dl { font-size:10px !important; letter-spacing:1.5px !important; }
+      .dv { font-size:17px !important; }
+      .ds { font-size:13px !important; }
+    }
     @media screen and (max-width:640px) {
       .outer-pad { padding:0 !important; }
       .email-shell { width:100% !important; max-width:100% !important; }
       .hi-title { font-size:22px !important; }
-      .cta-link { display:block !important; }
+      .corner-art { width:60px !important; padding-left:8px !important; }
+      .corner-img { width:52px !important; height:auto !important; }
+      .cta-link { display:block !important; padding:15px 10px !important; font-size:13px !important; letter-spacing:.2px !important; white-space:nowrap !important; }
     }
   </style>
 </head>
@@ -41,9 +49,10 @@
 
           <!-- Original ZENITH identity and hero composition -->
           <tr>
-            <td align="center" style="padding:20px 6% 6px;background-color:#08080a;">
+            <td align="center" style="padding:22px 36px 12px;background-color:#08080a;">
               <img src="https://www.zenith2k26.tech/assets/email/email-identity.png" width="540" alt="ZENITH — The Year of 2K26" style="display:block;width:100%;max-width:540px;height:auto;margin:0 auto;">
               <div style="font-family:'Plus Jakarta Sans',Arial,sans-serif;font-size:22px;line-height:1.35;font-weight:800;letter-spacing:7px;text-transform:uppercase;color:#ece9e2;margin-top:4px;">THE AI VOYAGE</div>
+              <div style="font-family:'JetBrains Mono','Courier New',monospace;font-size:11px;line-height:1.7;letter-spacing:3px;color:#a29faf;margin-top:13px;">[&nbsp; NATIONAL-LEVEL HACKATHON&nbsp; ]</div>
             </td>
           </tr>
 
@@ -53,56 +62,115 @@
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" background="https://www.zenith2k26.tech/assets/email/email-panel-texture.jpg" style="table-layout:fixed;border:1px solid #6b2dea;border-top:1px solid #8b6cff;border-bottom:1px solid #8b6cff;background-color:#101013;background-image:url('https://www.zenith2k26.tech/assets/email/email-panel-texture.jpg');background-size:cover;background-position:center;">
                 <tr>
                   <td align="center" valign="top" width="33%" class="date-cell" style="width:33.33%;padding:18px 4px 20px;border-right:1px solid #6861cc;">
-                    <div style="font-family:'JetBrains Mono','Courier New',monospace;font-size:9px;line-height:1.5;letter-spacing:1px;color:#a99bff;">THE DATES</div>
-                    <div style="font-family:'Plus Jakarta Sans',Arial,sans-serif;font-weight:800;font-size:15px;line-height:1.4;color:#f4f2f6;margin-top:5px;">17, 18 &amp; 19</div>
-                    <div style="font-family:'Plus Jakarta Sans',Arial,sans-serif;font-size:12px;line-height:1.5;color:#c9c6d0;">DECEMBER 2026</div>
+                    <div class="dl" style="font-family:'JetBrains Mono','Courier New',monospace;font-size:9px;line-height:1.5;letter-spacing:.3px;color:#a99bff;">THE DATES</div>
+                    <div class="dv" style="font-family:'Plus Jakarta Sans',Arial,sans-serif;font-weight:800;font-size:13px;line-height:1.4;color:#f4f2f6;margin-top:5px;">17, 18 &amp; 19</div>
+                    <div class="ds" style="font-family:'Plus Jakarta Sans',Arial,sans-serif;font-size:11px;line-height:1.5;color:#c9c6d0;">DECEMBER 2026</div>
                   </td>
                   <td align="center" valign="top" width="33%" class="date-cell" style="width:33.33%;padding:18px 4px 20px;border-right:1px solid #6861cc;">
-                    <div style="font-family:'JetBrains Mono','Courier New',monospace;font-size:9px;line-height:1.5;letter-spacing:1px;color:#a99bff;">THE VENUE</div>
-                    <div style="font-family:'Plus Jakarta Sans',Arial,sans-serif;font-weight:800;font-size:15px;line-height:1.4;color:#f4f2f6;margin-top:5px;">MLRIT</div>
-                    <div style="font-family:'Plus Jakarta Sans',Arial,sans-serif;font-size:12px;line-height:1.5;color:#c9c6d0;">Hyderabad</div>
+                    <div class="dl" style="font-family:'JetBrains Mono','Courier New',monospace;font-size:9px;line-height:1.5;letter-spacing:.3px;color:#a99bff;">THE VENUE</div>
+                    <div class="dv" style="font-family:'Plus Jakarta Sans',Arial,sans-serif;font-weight:800;font-size:13px;line-height:1.4;color:#f4f2f6;margin-top:5px;">MLR Institute<br class="venue-br"> of Technology</div>
+                    <div class="ds" style="font-family:'Plus Jakarta Sans',Arial,sans-serif;font-size:11px;line-height:1.5;color:#c9c6d0;">Hyderabad</div>
                   </td>
                   <td align="center" valign="top" width="34%" class="date-cell date-cell-last" style="width:33.34%;padding:18px 4px 20px;">
-                    <div style="font-family:'JetBrains Mono','Courier New',monospace;font-size:9px;line-height:1.5;letter-spacing:1px;color:#a99bff;">PRIZE POOL</div>
-                    <div style="font-family:'Plus Jakarta Sans',Arial,sans-serif;font-weight:800;font-size:15px;line-height:1.4;color:#f4f2f6;margin-top:5px;">&#8377;2.5 Lakh</div>
-                    <div style="font-family:'Plus Jakarta Sans',Arial,sans-serif;font-size:12px;line-height:1.5;color:#c9c6d0;">&#8377;2,50,000</div>
+                    <div class="dl" style="font-family:'JetBrains Mono','Courier New',monospace;font-size:9px;line-height:1.5;letter-spacing:.3px;color:#a99bff;">THE PRIZE POOL</div>
+                    <div class="dv" style="font-family:'Plus Jakarta Sans',Arial,sans-serif;font-weight:800;font-size:13px;line-height:1.4;color:#f4f2f6;margin-top:5px;">&#8377;2.5 Lakh</div>
+                    <div class="ds" style="font-family:'Plus Jakarta Sans',Arial,sans-serif;font-size:11px;line-height:1.5;color:#c9c6d0;">&#8377;2,50,000</div>
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
 
-          <!-- Message -->
+          <!-- Message block with original side shapes and knot illustration -->
           <tr>
-            <td class="main-pad" valign="top" style="padding:26px 7% 8px;background-color:#08080a;">
-              <div class="hi-title" style="font-family:'Permanent Marker','Trebuchet MS',cursive;font-size:24px;line-height:1.35;color:#ece9e2;">Hi Participant,</div>
-              <div style="width:96px;height:4px;background-color:#20e399;margin:8px 0 18px;"></div>
-              <div class="body-copy" style="font-family:'Plus Jakarta Sans',Arial,Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#c9c6d0;">
-                <p style="margin:0 0 14px;">You took on <strong style="color:#f4f2f6;">ZENITH’25</strong>. We’re back with <strong style="color:#f4f2f6;">ZENITH’26</strong>, and this time we’re raising the bar.</p>
-                <p style="margin:0 0 14px;">Three days of technology, innovation and real-world challenges. Come back, team up, and build something that matters.</p>
-                <p style="margin:0;">Ready to take on another challenge?</p>
-              </div>
+            <td style="padding:26px 0 0;background-color:#08080a;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td class="decor-side" width="9%" valign="middle" align="left" style="width:9%;">
+                    <img src="https://www.zenith2k26.tech/assets/email/email-side-left.png" width="62" alt="" aria-hidden="true" style="display:block;width:100%;max-width:62px;height:auto;max-height:410px;">
+                  </td>
+                  <td class="main-pad" valign="top" style="padding:15px 3.5% 24px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td valign="top">
+                          <div class="hi-title" style="font-family:'Permanent Marker','Trebuchet MS',cursive;font-size:25px;line-height:1.35;color:#ece9e2;">Hi Participant,</div>
+                          <div style="width:112px;height:4px;background-color:#20e399;margin:8px 0 22px;"></div>
+                        </td>
+                        <td class="corner-art" width="88" align="right" valign="top" style="width:88px;padding-left:8px;">
+                          <img src="https://www.zenith2k26.tech/assets/email/email-corner.png" class="corner-img" width="76" alt="" aria-hidden="true" style="display:block;width:76px;height:auto;opacity:.85;">
+                        </td>
+                      </tr>
+                    </table>
+
+                    <div class="body-copy" style="font-family:'Plus Jakarta Sans',Arial,Helvetica,sans-serif;font-size:15px;line-height:1.82;color:#c9c6d0;">
+                      <p style="margin:0 0 15px;">Remember the excitement, the challenges, and the experience of being part of <strong style="color:#f4f2f6;">ZENITH’25</strong>?</p>
+                      <p style="margin:0 0 15px;">Well, we’re back with <strong style="color:#f4f2f6;">ZENITH’26</strong>, and this time, we’re raising the bar!</p>
+                      <p style="margin:0 0 15px;">Get ready for three days of technology, innovation, and challenges that will push your thinking further. With challenging problem statements, real-world challenges, and an opportunity to build solutions that matter, ZENITH’26 is bringing something bigger to the table.</p>
+                      <p style="margin:0 0 15px;">The question is, are you ready to take on another challenge?</p>
+                      <p style="margin:0 0 15px;">Would you come back, team up, think beyond the obvious, and prove what you can build this time?</p>
+                      <p style="margin:0 0 15px;">Your previous experience was just the beginning. There’s a new set of challenges waiting, and we’d love to have you be part of it again.</p>
+                      <p style="margin:0;">You’ve been part of our journey once. We’d love to see you back for the next one.</p>
+                    </div>
+                  </td>
+                  <td class="decor-side" width="12%" valign="middle" align="right" style="width:12%;">
+                    <img src="https://www.zenith2k26.tech/assets/email/email-side-right.png" width="75" alt="" aria-hidden="true" style="display:block;width:100%;max-width:75px;height:auto;max-height:410px;margin-left:auto;">
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
 
-          <!-- CTA -->
+
+          <!-- Tagline and CTA -->
           <tr>
-            <td class="main-pad" align="center" style="padding:20px 7% 28px;background-color:#08080a;">
+            <td class="main-pad" align="center" style="padding:26px 6.5% 30px;">
+              <div style="font-family:'JetBrains Mono','Courier New',monospace;font-size:12px;line-height:1.8;letter-spacing:1.7px;color:#ece9e2;text-transform:uppercase;">Three days. New challenges. Bigger possibilities.</div>
+              <div style="font-family:'Plus Jakarta Sans',Arial,sans-serif;font-size:20px;line-height:1.4;font-weight:800;color:#20e399;margin:8px 0 21px;">The challenge is back. Are you?</div>
               <table role="presentation" cellpadding="0" cellspacing="0" border="0">
                 <tr>
                   <td align="center" bgcolor="#f86628" style="background:#f86628;">
-                    <a class="cta-link" href="https://www.zenith2k26.tech/" target="_blank" style="display:inline-block;padding:15px 26px;font-family:'Plus Jakarta Sans',Arial,Helvetica,sans-serif;font-size:14px;line-height:1.3;font-weight:800;letter-spacing:.5px;color:#08080a;text-transform:uppercase;">Register now&nbsp;&nbsp;→</a>
+                    <a class="cta-link" href="https://www.zenith2k26.tech/" target="_blank" style="display:inline-block;padding:16px 28px;font-family:'Plus Jakarta Sans',Arial,sans-serif;font-size:14px;line-height:1.3;font-weight:800;letter-spacing:.5px;color:#08080a;text-transform:uppercase;">REGISTER FOR ZENITH’26&nbsp;&nbsp;→</a>
                   </td>
                 </tr>
               </table>
+              <div style="font-family:'JetBrains Mono','Courier New',monospace;font-size:10px;line-height:1.7;color:#a29faf;margin-top:12px;">REGISTRATION LINK: <a href="https://www.zenith2k26.tech/" target="_blank" style="color:#20e399;text-decoration:underline;">ZENITH2K26.TECH</a></div>
             </td>
           </tr>
 
-          <!-- Footer -->
+
+          <!-- Dedicated footer spacer keeps the footer wordmark separate from the textured CTA area -->
           <tr>
-            <td align="center" bgcolor="#08080a" style="padding:22px 6% 28px;background-color:#08080a;border-top:1px solid #34313b;">
-              <img src="https://www.zenith2k26.tech/assets/email/email-footer-wordmark.png" width="200" alt="ZENITH" style="display:block;width:200px;max-width:60%;height:auto;margin:0 auto 14px;border:0;">
-              <div style="font-family:'Plus Jakarta Sans',Arial,Helvetica,sans-serif;font-size:13px;line-height:1.7;color:#c9c6d0;">Team SCOPE · MLR Institute of Technology, Hyderabad</div>
+            <td height="42" bgcolor="#08080a" style="height:42px;line-height:42px;font-size:1px;background:#08080a;">&nbsp;</td>
+          </tr>
+
+          <!-- Footer logo is rendered at its natural wide aspect ratio in its own table row -->
+          <tr>
+            <td align="center" bgcolor="#08080a" style="padding:30px 28px 34px;background-color:#08080a;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td align="center" style="padding:0 0 18px;line-height:0;font-size:0;">
+                    <img src="https://www.zenith2k26.tech/assets/email/email-footer-wordmark.png" width="320" height="72" alt="ZENITH" style="display:block;width:320px;max-width:100%;height:auto;border:0;outline:none;text-decoration:none;">
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" style="padding:0 0 18px;font-family:'JetBrains Mono','Courier New',monospace;font-size:11px;line-height:1.8;letter-spacing:1.8px;color:#a29faf;">
+                    BUILD&nbsp;&nbsp;/&nbsp;&nbsp;INNOVATE&nbsp;&nbsp;/&nbsp;&nbsp;COMPETE
+                  </td>
+                </tr>
+                <tr>
+                  <td height="1" bgcolor="#34313b" style="height:1px;line-height:1px;font-size:1px;background:#34313b;">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td align="center" style="padding:18px 0 0;font-family:'Plus Jakarta Sans',Arial,sans-serif;font-size:13px;line-height:1.75;color:#c9c6d0;">
+                    Regards,<br><strong style="color:#f4f2f6;">Team SCOPE</strong><br>MLR Institute of Technology, Hyderabad
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" style="padding:18px 0 0;font-family:'JetBrains Mono','Courier New',monospace;font-size:9px;line-height:1.8;letter-spacing:1px;color:#777481;">
+                    ZENITH’26&nbsp;&nbsp;·&nbsp;&nbsp;THE AI VOYAGE
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
 
